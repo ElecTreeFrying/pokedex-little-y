@@ -6,12 +6,18 @@
     "defaultCollection": "@nativescript/schematics"
   },
   "projects": {
-    "blank": {
+    "pokedex-little": {
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "ns"
     }
   },
-  "defaultProject": "blank"
+  "defaultProject": "pokedex-little"
 }

@@ -11,6 +11,12 @@
   "description": "NativeScript Application",
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
+  "scripts": {
+    "emulator": "player --vm-name \"Nativescript Playground\"",
+    "start": "tns run android --env.uglify --env.aot",
+    "start-emulator": "tns run android --env.uglify --env.aot --emulator --geny=\"Nativescript Playground\" --timeout=30000",
+    "build": "tns build android --env.uglify --env.aot"
+  },
   "dependencies": {
     "@angular/animations": "~8.2.0",
     "@angular/common": "~8.2.0",
@@ -28,9 +34,12 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
+    "@angular/cli": "^9.0.7",
     "@angular/compiler-cli": "~8.2.0",
+    "@nativescript/schematics": "^1.0.0",
     "@ngtools/webpack": "~8.2.0",
     "nativescript-dev-webpack": "~1.5.1",
+    "node-sass": "^4.13.1",
     "typescript": "~3.5.3"
   },
   "gitHead": "2250137db8c1e0bd0eb543e8e4563cb71480c00d",
