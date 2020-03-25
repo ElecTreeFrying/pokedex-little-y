@@ -1,0 +1,49 @@
+
+<ActionBar title="Berries">
+  
+  <NavigationButton icon="font://&#xf0c9;" class="fas fa-bar" (tap)="onShow()"></NavigationButton>
+  
+</ActionBar>
+
+<ScrollView  orientation="vertical">
+  <GridLayout rows="15, auto, 15", columns="*">
+    <GridLayout class="home-grid" row="1", col="0" rows="80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80" columns="*,*">
+
+      <MDRipple 
+        class="home-nav"
+        *ngFor="let item of (berries | async); let i = index; let even = even" 
+        [row]="even ? (i | evenPipe) : (i | oddPipe)" 
+        [col]="even ? 0 : 1"
+        [ngStyle]="{'margin': even ? '5 10 5 25' : '5 25 5 10'}"
+        (tap)="navigate(item)">
+        <FlexboxLayout flexDirection="row" flexWrap="wrap">
+          <FlexboxLayout 
+            class="home-label-wrapper"
+            flexDirection="column">
+            <Label
+              class="home-label"
+              [text]="item?.name">
+            </Label>
+            <Label
+              class="home-label suffix"
+              text="Berry">
+            </Label>
+          </FlexboxLayout>
+          <Label text="" flexGrow="1"></Label>
+          <Image
+            class="home-image" 
+            horizontalAlignment="right"
+            width="70"
+            height="70"
+            decodeHeight="70"
+            decodeWidth="70"
+            loadMode="async"
+            [src]="item?.image">
+          </Image>
+        </FlexboxLayout>
+      </MDRipple>
+
+
+    </GridLayout>    
+  </GridLayout>
+</ScrollView>

@@ -1,0 +1,32 @@
+<ActionBar [title]="generation?.name + ' - Pokémon'">
+  
+  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
+  
+</ActionBar>
+
+<GridLayout row="*" col="*">
+  <ScrollView row="0" col="0">
+    <ListView [items]="generation?.pokemon_species">
+      <ng-template let-item="item" let-i="index">
+        
+        <FlexboxLayout flexDirection="row">
+          <Label [text]="'#' + item?.entry_number" textTransform="capitalize" class="home-nav"></Label>
+          <Label [text]="item?.name" textTransform="capitalize" class="home-nav"></Label>
+          <Label text="" flexGrow="1"></Label>
+          <Image
+            class="home-image" horizontalAlignment="right"
+            decodeHeight="70"
+            decodeWidth="70"
+            width="70"
+            height="70"
+            isLoaded="false"
+            isLoading="false"
+            loadMode="async"
+            [src]="item?.image">
+          </Image>
+        </FlexboxLayout>
+
+      </ng-template>
+    </ListView>
+  </ScrollView>
+</GridLayout>

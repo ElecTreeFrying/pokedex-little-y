@@ -13,9 +13,8 @@
   "repository": "<fill-your-repository-here>",
   "scripts": {
     "emulator": "player --vm-name \"Nativescript Playground\"",
-    "start": "tns run android --env.uglify --env.aot",
-    "start-emulator": "tns run android --env.uglify --env.aot --emulator --geny=\"Nativescript Playground\" --timeout=30000",
-    "build": "tns build android --env.uglify --env.aot"
+    "start": "tns run android --env.snapshot --env.uglify --env.aot",
+    "build": "tns build android --env.snapshot --env.uglify --env.aot"
   },
   "dependencies": {
     "@angular/animations": "~8.2.0",
@@ -27,7 +26,11 @@
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
     "@nativescript/theme": "~2.3.3",
+    "chance": "^1.1.4",
+    "lodash": "^4.17.15",
     "nativescript-angular": "~8.21.0",
+    "nativescript-material-ripple": "^3.1.15",
+    "nativescript-ui-sidedrawer": "^8.0.0",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.4.0",
     "tns-core-modules": "~6.5.0",
@@ -38,8 +41,11 @@
     "@angular/compiler-cli": "~8.2.0",
     "@nativescript/schematics": "^1.0.0",
     "@ngtools/webpack": "~8.2.0",
+    "@types/chance": "^1.0.9",
+    "@types/lodash": "^4.14.149",
     "nativescript-dev-webpack": "~1.5.1",
     "node-sass": "^4.13.1",
+    "tns-platform-declarations": "^6.5.0",
     "typescript": "~3.5.3"
   },
   "gitHead": "2250137db8c1e0bd0eb543e8e4563cb71480c00d",

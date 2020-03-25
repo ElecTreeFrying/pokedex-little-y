@@ -1,0 +1,36 @@
+<ActionBar title="Home">
+  
+  <NavigationButton icon="font://&#xf0c9;" class="fas fa-bar" (tap)="onShow()"></NavigationButton>
+
+  <!-- <ActionItem text="delete" icon="font://&#xf142;" class="fas" android.position="popup"></ActionItem>
+  <ActionItem text="erase" android.position="popup"></ActionItem>
+  <ActionItem text="call" android.position="popup"></ActionItem> -->
+
+</ActionBar>
+
+<GridLayout row="*" col="*">
+  <ScrollView row="0" col="0">
+    <ListView [items]="pokemon | async">
+      <ng-template let-item="item" let-i="index">
+        
+        <FlexboxLayout flexDirection="row">
+          <Label [text]="item?.entry_number" textTransform="capitalize" class="home-nav"></Label>
+          <Label [text]="item?.name" textTransform="capitalize" class="home-nav"></Label>
+          <Label text="" flexGrow="1"></Label>
+          <Image
+            class="home-image" horizontalAlignment="right"
+            decodeHeight="70"
+            decodeWidth="70"
+            width="70"
+            height="70"
+            isLoaded="false"
+            isLoading="false"
+            loadMode="async"
+            [src]="item?.image">
+          </Image>
+        </FlexboxLayout>
+
+      </ng-template>
+    </ListView>
+  </ScrollView>
+</GridLayout>

@@ -1,5 +1,24 @@
 @import "~@nativescript/theme/core";
-@import "~@nativescript/theme/blue";
+@import "~@nativescript/theme/default";
 
 /* Place any SCSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your SCSS code goes. */
+
+.fab {
+  font-family: "Font Awesome 5 Brands", "fa-brands-400";
+  font-weight: 400;
+}
+
+.far {
+  font-family: "Font Awesome 5 Free", "fa-regular-400";
+  font-weight: 400;
+}
+
+.fas {
+  font-family: "Font Awesome 5 Free", "fa-solid-900";
+  font-weight: 900;
+}
+
+.ico {
+  font-family: "IcoMoon-Free";
+}

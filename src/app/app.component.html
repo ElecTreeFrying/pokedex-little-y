@@ -1,1 +1,24 @@
-<page-router-outlet></page-router-outlet>
+
+<RadSideDrawer [drawerTransition]="transition">
+
+  <GridLayout tkDrawerContent rows="24,auto,*,auto" columns="*">
+
+    <Label row="0" col="0" text=""></Label>
+
+    <Label row="1" col="0" text="Pokédex Little"  class="dw-title"></Label>
+    
+    <ListView row="2" col="0" [items]="[ 'Home', 'Pokédex', 'Pokémon', 'Generation', 'Berries' ]">
+      <ng-template let-item="item" let-i="index">
+        <StackLayout class="-separator">
+          <Label [text]="item" class="dw-nav" (tap)="navigate(item)" ></Label>
+        </StackLayout>
+      </ng-template>
+    </ListView>
+    
+    <Label row="3" col="0" text="Pokédex Little by ElecTreeFrying" class="dw-bottom"></Label>
+
+  </GridLayout>
+
+  <page-router-outlet tkMainContent></page-router-outlet>
+
+</RadSideDrawer>

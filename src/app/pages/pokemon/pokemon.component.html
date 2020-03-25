@@ -1,0 +1,23 @@
+
+<ActionBar title="Pokémon Type">
+  
+  <NavigationButton icon="font://&#xf0c9;" class="fas fa-bar" (tap)="onShow()"></NavigationButton>
+  
+</ActionBar>
+
+<ScrollView  orientation="vertical">
+  <GridLayout rows="15, auto, 15", columns="*">
+    <GridLayout class="home-grid" row="1", col="0" rows="70,70,70,70,70,70,70,70,70" columns="*,*">
+      <Button 
+        class="home-button"
+        *ngFor="let item of (pokemon | async); let i = index; let even = even" 
+        [row]="even ? (i | evenPipe) : (i | oddPipe)" 
+        [col]="even ? 0 : 1"  
+        [text]="item?.name"
+        (tap)="navigate(item)"
+        [ngStyle]="{'margin': even ? '0 10 0 25' : '0 25 0 10'}"
+        ></Button>
+    </GridLayout>    
+  </GridLayout>
+</ScrollView>
+

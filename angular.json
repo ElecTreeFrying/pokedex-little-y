@@ -3,7 +3,8 @@
   "version": 1,
   "newProjectRoot": "projects",
   "cli": {
-    "defaultCollection": "@nativescript/schematics"
+    "defaultCollection": "@nativescript/schematics",
+    "analytics": "39c2e22e-5d5b-441a-8585-143f2603c65b"
   },
   "projects": {
     "pokedex-little": {
