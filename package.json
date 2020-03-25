@@ -1,18 +1,21 @@
 {
   "nativescript": {
     "id": "org.nativescript.pokedexlittle",
-    "tns-android": {
+    "tns-ios": {
       "version": "6.5.0"
     },
-    "tns-ios": {
+    "tns-android": {
       "version": "6.5.0"
     }
   },
-  "description": "NativeScript Application",
-  "license": "SEE LICENSE IN <your-license-filename>",
-  "repository": "<fill-your-repository-here>",
+  "description": "Angular + NativeScript demo application featuring PokéAPI.",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "homepage": "https://github.com/ElecTreeFrying/auto-import-relative-path/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ElecTreeFrying/auto-import-relative-path.git"
+  },
   "scripts": {
-    "emulator": "player --vm-name \"Nativescript Playground\"",
     "start": "tns run android --env.snapshot --env.uglify --env.aot",
     "build": "tns build android --env.snapshot --env.uglify --env.aot"
   },
