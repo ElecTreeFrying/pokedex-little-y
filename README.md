@@ -108,7 +108,7 @@
 
 ## License
 
-Apache License v2.0
+Apache License 2.0
 
 [Angular + NativeScript]: https://www.nativescript.org/nativescript-is-how-you-build-native-mobile-apps-with-angular
 [PokéAPI]: https://pokeapi.co/
