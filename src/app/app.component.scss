@@ -1,12 +1,25 @@
 
+.radside-container {
+  background-color: #530034;
+  color: white;
+}
+
 .dw-title {
   font-size: 30;
   font-family: 'Oxygen', 'Oxygen-Regular';
   vertical-align: middle;
-  margin: 20 0 10 13;
+  margin: 30 0 10 20;
 }
 
 .dw-nav {
+  background-color: #340522;
+  padding: 10 0 10 30;
+  margin-bottom: 2;
+  border-width: 1;
+  border-color: transparent;
+}
+
+.dw-label {
   font-size: 20;
   font-family: 'Rubik', 'Rubik-Regular';
 }

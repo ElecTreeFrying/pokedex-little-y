@@ -1,13 +1,11 @@
 
-.fa-bar {
-  font-size: 6.5;
-  color: black;
-}
-
-.home-grid {
-  margin-top: 15;
-}
-
-.home-button {
-  border-radius: 10;
+.container {
+  padding: 15 0 15 0;
+  
+  .button {
+    border-radius: 10;
+    background-color: #4E1338;
+    color: white;
+    font-size: 16;
+  }
 }

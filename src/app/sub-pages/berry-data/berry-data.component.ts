@@ -21,7 +21,17 @@ export class BerryDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.berry = this.route.snapshot.data['resolve'];
-    this.berry['item']['data'] = this.api.berryEntries(this.berry['item']['url']);
+    this.berry['item_data'] = this.api.berryEntries(this.berry['item_id']);
+
+    this.berry['item_data'].subscribe((res) => {
+    
+      // delete this.berry['item_id'];
+      // delete this.berry['item_data'];
+      // this.berry['item'] = res;
+      // console.log(res);
+    });
+    
+    // console.log(this.berry);
   }
 
 }

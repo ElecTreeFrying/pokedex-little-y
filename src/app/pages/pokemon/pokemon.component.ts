@@ -3,7 +3,11 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import * as app from "tns-core-modules/application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
-import { PokeApiService } from "../../_common/services/poke-api.service";
+import { EventData } from 'tns-core-modules/data/observable';
+
+import { Button } from 'tns-core-modules/ui/button';
+
+import { PokeApiService, color } from "../../_common/services/poke-api.service";
 
 @Component({
   selector: 'ns-pokemon',
@@ -13,11 +17,14 @@ import { PokeApiService } from "../../_common/services/poke-api.service";
 export class PokemonComponent implements OnInit {
 
   pokemon: any;
+  color: any;
 
   constructor(
     private router: RouterExtensions,
     private api: PokeApiService
-  ) { }
+  ) { 
+    this.color = color;    
+  }
   
   ngOnInit(): void {
     this.pokemon = this.api.pokemonData;
@@ -31,6 +38,16 @@ export class PokemonComponent implements OnInit {
   onShow() {
     const drawer = <RadSideDrawer>app.getRootView();
     drawer.showDrawer();
+  }
+
+  button(args: EventData) {
+
+    console.log(args.eventName);
+
+    const button = <Button>args.object;
+
+    console.log(button.width);
+
   }
   
 }

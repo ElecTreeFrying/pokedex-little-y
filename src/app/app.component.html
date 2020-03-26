@@ -1,24 +1,30 @@
 
-<RadSideDrawer [drawerTransition]="transition">
+<RadSideDrawer [drawerTransition]="transition" class="ns-dar">
 
-  <GridLayout tkDrawerContent rows="24,auto,*,auto" columns="*">
+  <GridLayout tkDrawerContent class="radside-container" rows="24,auto,*,auto" columns="*">
 
     <Label row="0" col="0" text=""></Label>
 
     <Label row="1" col="0" text="Pokédex Little"  class="dw-title"></Label>
     
-    <ListView row="2" col="0" [items]="[ 'Home', 'Pokédex', 'Pokémon', 'Generation', 'Berries' ]">
-      <ng-template let-item="item" let-i="index">
-        <StackLayout class="-separator">
-          <Label [text]="item" class="dw-nav" (tap)="navigate(item)" ></Label>
-        </StackLayout>
-      </ng-template>
-    </ListView>
-    
+    <GridLayout row="2" col="0" rows="auto,auto,auto,auto,auto" columns="*">
+      <MDRipple 
+        class="dw-nav"
+        androidElevation="4"
+        *ngFor="let item of nav;index as i"
+        (tap)="navigate(item)"
+        [row]="i"
+        col="0">
+      <FlexboxLayout>
+        <Label [text]="item" class="dw-label"></Label>
+      </FlexboxLayout>
+      </MDRipple>
+    </GridLayout>
+
     <Label row="3" col="0" text="Pokédex Little by ElecTreeFrying" class="dw-bottom"></Label>
 
   </GridLayout>
 
-  <page-router-outlet tkMainContent></page-router-outlet>
-
+  <page-router-outlet tkMainContent class="ns-dar"></page-router-outlet>
+  
 </RadSideDrawer>

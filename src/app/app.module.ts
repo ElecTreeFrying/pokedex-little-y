@@ -2,6 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
+import { NativeScriptMaterialRippleModule } from 'nativescript-material-ripple/angular'
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -17,6 +18,7 @@ import { PokedexDataResolve } from "./_common/resolvers/pokedex-data.resolve";
     NativeScriptModule,
     NativeScriptHttpClientModule,
     NativeScriptUISideDrawerModule,
+    NativeScriptMaterialRippleModule,
     AppRoutingModule
   ],
   declarations: [

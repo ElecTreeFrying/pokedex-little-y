@@ -1,9 +1,25 @@
 
-.fa-bar {
-  font-size: 6.5;
-  color: black;
-}
+.container {
+  padding: 15 0 15 0;
+  color: white;
+  
+  .nav {
+    border-radius: 10;
+    background-color: #4E1338;
+    height: 52;
+    // opacity: 0.5;
+    
+    .item {
+      border-radius: 10;
+      padding: 8 15 8 15;
+      // z-index: 5;
+      height: 52;
+      width: 100%;
+      background-color: rgba(111, 110, 111, 0.5);
+    }
 
-.home-button {
-  border-radius: 10;
+    .label {
+      font-size: 16;
+    }
+  }
 }

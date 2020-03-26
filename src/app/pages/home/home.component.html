@@ -1,24 +1,30 @@
-<ActionBar title="Home">
+<ActionBar class="action-bar" title="Home">
   
   <NavigationButton icon="font://&#xf0c9;" class="fas fa-bar" (tap)="onShow()"></NavigationButton>
 
-  <!-- <ActionItem text="delete" icon="font://&#xf142;" class="fas" android.position="popup"></ActionItem>
-  <ActionItem text="erase" android.position="popup"></ActionItem>
-  <ActionItem text="call" android.position="popup"></ActionItem> -->
-
 </ActionBar>
 
-<GridLayout row="*" col="*">
-  <ScrollView row="0" col="0">
-    <ListView [items]="pokemon | async">
-      <ng-template let-item="item" let-i="index">
-        
+<GridLayout class="container" rows="*" columns="*">
+  <ScrollView>
+    <FlexboxLayout row="0" col="0" flexDirection="column">
+      <MDRipple 
+        rippleColor="#FFFFFF"
+        class="poke-nav"
+        *ngFor="let item of (pokemon | async); first as isFirst; last as isLast"
+        [ngStyle]="{ 'margin': isFirst ? '20 20 4 20' : isLast ? '4 20 20 20' : '4 20 4 20' }"
+        (tap)="toPokemon(item)">
         <FlexboxLayout flexDirection="row">
-          <Label [text]="item?.entry_number" textTransform="capitalize" class="home-nav"></Label>
-          <Label [text]="item?.name" textTransform="capitalize" class="home-nav"></Label>
+          <Label 
+            class="poke-label number"
+            [text]="item?.entry_number + ' '" 
+            textTransform="capitalize"></Label>
+          <Label 
+            class="poke-label name"
+            [text]="item?.name" 
+            textTransform="capitalize"></Label>
           <Label text="" flexGrow="1"></Label>
           <Image
-            class="home-image" horizontalAlignment="right"
+            class="poke-image" horizontalAlignment="right"
             decodeHeight="70"
             decodeWidth="70"
             width="70"
@@ -29,8 +35,7 @@
             [src]="item?.image">
           </Image>
         </FlexboxLayout>
-
-      </ng-template>
-    </ListView>
+      </MDRipple>
+    </FlexboxLayout>
   </ScrollView>
 </GridLayout>

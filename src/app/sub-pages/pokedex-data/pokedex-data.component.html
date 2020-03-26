@@ -1,9 +1,13 @@
 
-<ActionBar [title]="pokemon?.name + ' Pokédex'">
+<ActionBar class="action-bar" [title]="pokemon?.name + ' Pokédex'">
   
   <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
   
-  <ActionItem text="More details" android.position="popup" (tap)="moreDetails(pokemon?.description)"></ActionItem>
+  <ActionItem 
+    *ngIf="isShowActionItem"
+    text="More details" 
+    android.position="popup"
+    (tap)="moreDetails(pokemon?.description)"></ActionItem>
 
 </ActionBar>
   

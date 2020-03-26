@@ -23,12 +23,24 @@ export class BerryDataResolve implements Resolve<any> {
     return this.http.get(`https://pokeapi.co/api/v2/berry/${id}`).pipe(
       map((berry: any) => {
         
+        const firmness = berry['firmness']['name'];
+        berry['size'] = +berry['size'] / 10;
+
+        berry['image'] = `${this.sprite}${berry['item']['name']}.png`;
+        berry['firmness'] = `${firmness[0].toUpperCase()}${firmness.slice(1)}`.replace('-', ' ');
+        berry['item_id'] = +berry['item']['url'].split('/').reverse()[1];
+
         berry['flavors'].map((flavor) => {
-          flavor['name'] = flavor['flavor']['name'];
+          const name = flavor['flavor']['name'];
+          flavor['name'] = `${name[0].toUpperCase()}${name.slice(1)}`;
           delete flavor['flavor'];
           return flavor;
         });
-        berry['image'] = `${this.sprite}${berry['item']['name']}.png`;
+
+        delete berry['item'];
+        delete berry['natural_gift_type'];
+        delete berry['natural_gift_power'];
+        delete berry['id'];
 
         return berry;
       })

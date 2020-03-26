@@ -20,6 +20,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.pokemon = this.api.homeData;
   }
+
+  toPokemon(pokemon: any) {
+    console.log('pokemon selected →', pokemon);
+  }
   
   onShow() {
     const drawer = <RadSideDrawer>app.getRootView();

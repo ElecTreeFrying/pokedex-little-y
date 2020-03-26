@@ -21,6 +21,10 @@ export class BerriesComponent implements OnInit {
   
   ngOnInit(): void {
     this.berries = this.api.berriesData;
+
+    this.berries.subscribe((res) => {
+      this.navigate(res[0]);
+    });
   }
 
   navigate(item: any) {

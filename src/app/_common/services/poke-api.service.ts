@@ -2,7 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
 import { BehaviorSubject } from 'rxjs';
-import * as Chance from 'chance';
+
+export const color = {
+  default: {
+    bug: 'A8B820', dark: '705848', dragon: '7038F8', electric: 'F8D030', fairy: 'EE99AC',
+    fighting: 'C03028', fire: 'F08030', flying: 'A890F0', ghost: '705898', grass: '78C850',
+    ground: 'E0C068', ice: '98D8D8', normal: 'A8A878', poison: 'A040A0', psychic: 'F85888',
+    rock: 'B8A038', steel: 'B8B8D0', water: '6890F0'
+  },
+  light: {
+    bug: 'C6D16E', dark: 'A29288', dragon: 'A27DFA', electric: 'FAE078', fairy: 'F4BDC9',
+    fighting: 'D67873', fire: 'F5AC78', flying: 'C6B7F5', ghost: 'A292BC', grass: 'A7DB8D',
+    ground: 'EBD69D', ice: 'BCE6E6', normal: 'C6C6A7', poison: 'C183C1', psychic: 'FA92B2',
+    rock: 'D1C17D', steel: 'D1D1E0', water: '9DB7F5'
+  },
+  dark: {
+    bug: '6D7815', dark: '49392F', dragon: '4924A1', electric: 'A1871F', fairy: '9B6470',
+    fighting: '7D1F1A', fire: '9C531F', flying: '6D5E9C', ghost: '493963', grass: '4E8234',
+    ground: '927D44', ice: '638D8D', normal: '6D6D4E', poison: '682A68', psychic: 'A13959',
+    rock: '786824', steel: '787887', water: '445E9C'
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +55,7 @@ export class PokeApiService {
           pokemon['image'] = this.pokemonSpriteURL + id + '.png';
           delete pokemon['pokemon_species'];
           return pokemon;
-        });
+        }).slice(0, 10);
       })
     )
   }
@@ -111,30 +131,51 @@ export class PokeApiService {
     );
   }
 
-  berryEntries(url: string) {
-    const id = url.split('/').reverse()[1];
-    
+  berryEntries(id: number) {
     return this.http.get(`https://pokeapi.co/api/v2/item/${id}/`).pipe(
       map((item) => {
         
-        const length0 = item['effect_entries'].filter(e => e.language.name === 'en').length - 1;
-        const chance0 = new Chance();
-        const randomInt0 = chance0.integer({ min: 0, max: length0 });
-        const effect_entries = item['effect_entries'].filter(e => e.language.name === 'en')[randomInt0];
-        const effect_entriesData = item['effect_entries'].filter(e => e.language.name === 'en');
+        
 
-        const length1 = item['flavor_text_entries'].filter(e => e.language.name === 'en').length - 1;
-        const chance1 = new Chance();
-        const randomInt1 = chance1.integer({ min: 0, max: length1 });
-        const flavor_text_entries = item['flavor_text_entries'].filter(e => e.language.name === 'en')[randomInt1];
-        const flavor_text_entriesData = item['flavor_text_entries'].filter(e => e.language.name === 'en');
-
-        return { 
-          effect_entries,
-          effect_entriesData,
-          flavor_text_entries,
-          flavor_text_entriesData  
-        };
+        let effect_entries = item['effect_entries']
+          .filter(e => e.language.name === 'en')
+          .map((entry: any) => {
+            entry['effect'] = entry['effect']
+              .replace(/  +/g, ' ').replace(/\s\s+/g, ' ')
+              .replace(/\n/g, ' ').replace(/ :/g, ':');
+            delete entry['language'];
+            return entry;
+          })[0];
+          
+        // Fuck this shit im sorry for this baby shit code.
+        let flavor_text_entries = item['flavor_text_entries']
+          .filter(e => e.language.name === 'en')
+          .map((entry: any) => {
+            entry['language'] = entry['language']['name'];
+            entry['text'] = entry['text'].replace(/\n/g, ' ');
+            entry['version_group'] = entry['version_group']['name'];
+            entry['version'] = 'Pokémon ' + entry['version_group']
+              .replace('red-blue', 'red-and-blue')
+              .replace('gold-silver', 'gold-and-silver')
+              .replace('ruby-sapphire', 'ruby-and-sapphire')
+              .replace('firered-leafgreen', 'fire-red-and-leafy-green')
+              .replace('diamond-pearl', 'diamond-and-pearl')
+              .replace('heartgold-soulsilver', 'heart-gold-and-soul-silver')
+              .replace('black-white', 'black-and-white')
+              .replace('black-2-white-2', 'black-2-and-white-2')
+              .replace('x-y', 'x-and-y')
+              .replace('omega-ruby-alpha-sapphire', 'omega-ruby-and-alpha-sapphire')
+              .replace('sun-moon', 'sun-and-moon')
+              .replace('ultra-sun-ultra-moon', 'ultra-sun-and-ultra-moon')
+              .split('-')
+              .map((a: string) => a[0].toUpperCase() + a.slice(1))
+              .join(' ').replace('And', 'and') + ' Version';
+            
+            delete entry['language'];
+            return entry;
+          });
+        
+        return { effect_entries, flavor_text_entries };
       })
     );
   }

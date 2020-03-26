@@ -1,7 +1,180 @@
-<ActionBar title="Berry">
+<ActionBar class="action-bar" title="Berry">
   
   <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
   
 </ActionBar>
 
-<Button text="berry-data works!" class="btn btn-primary"></Button>
+<ScrollView class="container">
+  <GridLayout class="layout" rows="auto,auto,auto, auto" columns="*">
+
+    <FlexboxLayout 
+      row="0" col="0"
+      class="head" 
+      justifyContent="center">
+      
+      <FlexboxLayout class="text" alignItems="center">
+        <Label
+          class="text"
+          [text]="berry?.name + ' Berry'"
+          textAlignment="center"
+          textTransform="capitalize">
+        </Label>
+      </FlexboxLayout>
+  
+      <FlexboxLayout class="image">
+        <Image
+          class="image"
+          width="40"
+          height="40"
+          decodeHeight="40"
+          decodeWidth="40"
+          loadMode="async"
+          [src]="berry?.image">
+        </Image>
+      </FlexboxLayout>
+      
+    </FlexboxLayout>
+
+    <StackLayout 
+      row="1" col="0"
+      class="hr">
+    </StackLayout>
+
+    <GridLayout
+      row="2" col="0"
+      rows="auto" columns="*,*"
+      class="display">
+      
+      <FlexboxLayout 
+        row="0" col="0"
+        id="left"
+        flexGrow="1"
+        justifyContent="center" 
+        class="bo">
+        
+        <FlexboxLayout
+          flexDirection="column"
+          class="left-inner">
+          <Image
+            class="image bo"
+            width="120"
+            height="120"
+            decodeHeight="120"
+            decodeWidth="120"
+            loadMode="async"
+            [src]="berry?.image">
+          </Image>
+          <Label
+            class="text"
+            [text]="berry?.name + ' Berry'"
+            textAlignment="center"
+            textTransform="capitalize">
+          </Label>
+        </FlexboxLayout>
+
+      </FlexboxLayout>
+
+      <FlexboxLayout 
+        row="0" col="1"
+        id="right"
+        flexGrow="1" flexDirection="column" class="bo">
+
+        <FlexboxLayout>
+          <Label
+            class="text"
+            [text]="berry?.firmness"
+            textAlignment="left"
+            textTransform="capitalize">
+          </Label>
+          <Label
+            class="text"
+            [text]="berry?.size + ' cm'"
+            textAlignment="left">
+          </Label>  
+        </FlexboxLayout>
+
+        <FlexboxLayout>
+          <Label
+            class="text"
+            [text]="berry?.firmness"
+            textAlignment="left"
+            textTransform="capitalize">
+          </Label>
+          <Label
+            class="text"
+            [text]="berry?.size + ' cm'"
+            textAlignment="left">
+          </Label>  
+        </FlexboxLayout>
+        
+      </FlexboxLayout>
+
+    </GridLayout>
+
+
+    <FlexboxLayout *ngIf="false"
+      class="row-all"
+      row="3" col="0" flexDirection="column">
+      
+      <Label
+        class="text"
+        [text]="berry?.firmness"
+        textAlignment="left"
+        textTransform="capitalize">
+      </Label>
+      <Label
+        class="text"
+        [text]="berry?.size + ' cm'"
+        textAlignment="left">
+      </Label>
+      <Label
+        class="text"
+        [text]="'Growth time: ' + berry?.growth_time + 'hrs'"
+        textAlignment="left">
+      </Label>
+      <Label
+        class="text"
+        [text]="'Max harvest: ' + berry?.max_harvest + 'pc(s)'"
+        textAlignment="left">
+      </Label>
+      <Label
+        class="text"
+        [text]="'Soil dryness: ' + berry?.soil_dryness + '%'"
+        textAlignment="left">
+      </Label>
+      <Label
+        class="text"
+        [text]="'Smoothness: ' + berry?.smoothness + '%'"
+        textAlignment="left">
+      </Label>
+      <Image
+        class="image"
+        width="120"
+        height="120"
+        decodeHeight="120"
+        decodeWidth="120"
+        loadMode="async"
+        [src]="berry?.image">
+      </Image>
+      <Label
+        class="text"
+        [text]="berry?.name + ' Berry'"
+        textAlignment="center"
+        textTransform="capitalize">
+      </Label>
+      <Label
+        class="text"
+        text="Details"
+        textAlignment="left">
+      </Label>
+      <Label
+        class="text"
+        [text]="(berry?.item_data | async)?.effect_entries?.effect"
+        textAlignment="left"
+        textWrap="true">
+      </Label>
+  
+    </FlexboxLayout>
+  
+  </GridLayout>
+</ScrollView>

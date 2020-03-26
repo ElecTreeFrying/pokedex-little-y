@@ -22,3 +22,17 @@ This is where the vast majority of your SCSS code goes. */
 .ico {
   font-family: "IcoMoon-Free";
 }
+
+.action-bar {
+  background-color: #530034;
+  color: white;
+  
+  .fa-bar {
+    font-size: 6.5;
+  }
+}
+
+.container {
+  background-color: #340522;
+  color: white;
+}

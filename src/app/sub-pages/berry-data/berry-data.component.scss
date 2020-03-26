@@ -1,5 +1,77 @@
 
 .fa-arrow-left {
   font-size: 6.5;
-  color: black;
+  color: white;
 }
+
+.action-bar {
+  background-color: #340522;
+}
+
+.layout {
+  background-color: white;
+  border-top-right-radius: 30;
+  border-top-left-radius: 30;
+  color: black;
+
+  .text.head {
+    font-size: 27;
+  }
+}
+
+.head {
+
+  margin: 15 0 7 0;
+
+  .text { font-size: 24; }
+}
+
+.display {
+
+  margin-top: 15;
+
+  #left {
+    border-width: 1;
+    border-color: black;
+    
+    .left-inner {
+      // border-radius: 10;
+      width: 100%;
+      margin: 10;
+    }
+
+    .text { font-size: 24; }
+  }
+  
+}
+
+
+$borderColor: black;
+// $borderColor: white;
+
+.row-all {
+  border-color: $borderColor;
+  border-width: 1px;
+  padding-right: 25;
+
+  .image {
+    border-color: $borderColor;
+    border-width: 1px;
+  }
+  
+  .text {
+    border-color: $borderColor;
+    border-width: 1px;
+  }
+}
+
+.bo {
+  // border-width: 1;
+  // border-color: black;
+  visibility: visible;
+}
+
+.tx {
+  font-size: 24;
+}
+

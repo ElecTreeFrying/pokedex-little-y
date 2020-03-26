@@ -11,6 +11,7 @@ import { alert } from 'tns-core-modules/ui/dialogs';
 export class PokedexDataComponent implements OnInit {
 
   pokemon: any;
+  isShowActionItem: boolean;
 
   constructor(
     public router: RouterExtensions,
@@ -19,15 +20,18 @@ export class PokedexDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemon = this.route.snapshot.data['resolve'];
+    this.isShowActionItem = this.pokemon.description.length > 0;
   }
 
   moreDetails(description: string) {
     alert({
-      title: `About`,
-      message: description.replace('dex', 'pokédex'),
-      okButtonText: 'Exit',
+      title: `Pokédex`,
+      message: description.replace('dex', 'pokédex').replace('—', ' — ') + '.',
+      okButtonText: 'Done',
       cancelable: true
     })
   }
 
 }
+
+

@@ -4,6 +4,7 @@ import {
 } from 'nativescript-ui-sidedrawer';
 import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
 import { RouterExtensions } from "nativescript-angular/router";
+import { AnimationCurve } from 'tns-core-modules/ui/enums';
 
 @Component({
   selector: "ns-app",
@@ -11,6 +12,8 @@ import { RouterExtensions } from "nativescript-angular/router";
   styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent implements OnInit, AfterViewInit { 
+
+  nav = [ 'Home', 'Pokédex', 'Pokémon', 'Generation', 'Berries' ];
 
   @ViewChild(RadSideDrawerComponent, { static: false }) 
   public drawerComponent: RadSideDrawerComponent;
@@ -29,20 +32,27 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   
   ngOnInit() {
-    // this.test();
+    this.test();
   }
 
   test() {
     setTimeout(() => { 
       this.router.navigate(['/', 'berries']);
-    }), 3000;
+    }), 1000;
   }
 
   navigate(item: string = "") {
     const route = item.replace('é', 'e').toLowerCase();
 
-    this.router.navigate([ '/', route ]).then(() => {
-      this.drawer.closeDrawer();
+    this.drawer.closeDrawer();
+
+    this.router.navigate([ '/', route], {
+      animated: true,
+      transition: {
+        name: 'slide',
+        curve: AnimationCurve.cubicBezier(1,0,.5,1),
+        duration: 500
+      }
     });
   }
 

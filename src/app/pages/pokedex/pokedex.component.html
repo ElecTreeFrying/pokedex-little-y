@@ -1,19 +1,20 @@
 
-<ActionBar title="Pokédex">
+<ActionBar class="action-bar" title="Pokédex">
   
   <NavigationButton icon="font://&#xf0c9;" class="fas fa-bar" (tap)="onShow()"></NavigationButton>
   
 </ActionBar>
-  
-<GridLayout class="home-grid" rows="70,70,70,70,70,70,70,70" columns="*,*">
-  <Button 
-    class="home-button"
-    *ngFor="let item of (pokedex | async); let i = index; let even = even" 
-    [row]="even ? (i | evenPipe) : (i | oddPipe)" 
-    [col]="even ? 0 : 1"  
-    [text]="item?.name"
-    (tap)="navigate(item)"
-    [ngStyle]="{'margin': even ? '0 10 0 25' : '0 25 0 10'}"
-    ></Button>
-</GridLayout>
 
+<ScrollView>
+  <GridLayout class="container" rows="70,70,70,70,70,70,70,70" columns="*,*">
+    <Button 
+      class="button"
+      *ngFor="let item of (pokedex | async); index as i; even as isEven" 
+      [row]="isEven ? (i | evenPipe) : (i | oddPipe)" 
+      [col]="isEven ? 0 : 1"  
+      [text]="item?.name"
+      (tap)="navigate(item)"
+      [ngStyle]="{'margin': isEven ? '0 10 0 25' : '0 25 0 10'}"
+      ></Button>
+  </GridLayout>
+</ScrollView>

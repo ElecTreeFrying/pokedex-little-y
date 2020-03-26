@@ -1,20 +1,20 @@
 
-<ActionBar title="Berries">
+<ActionBar class="action-bar" title="Berries">
   
   <NavigationButton icon="font://&#xf0c9;" class="fas fa-bar" (tap)="onShow()"></NavigationButton>
   
 </ActionBar>
 
-<ScrollView  orientation="vertical">
-  <GridLayout rows="15, auto, 15", columns="*">
-    <GridLayout class="home-grid" row="1", col="0" rows="80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80" columns="*,*">
-
+<GridLayout class="container" rows="*" columns="*">
+  <ScrollView>
+    <GridLayout class="nav-container" row="0" col="0" rows="85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85" columns="*,*">
       <MDRipple 
-        class="home-nav"
-        *ngFor="let item of (berries | async); let i = index; let even = even" 
-        [row]="even ? (i | evenPipe) : (i | oddPipe)" 
-        [col]="even ? 0 : 1"
-        [ngStyle]="{'margin': even ? '5 10 5 25' : '5 25 5 10'}"
+        rippleColor="#FFFFFF"
+        class="nav"
+        *ngFor="let item of (berries | async); index as i; even as isEven" 
+        [ngStyle]="{ 'margin': isEven ? '0 7.5 0 25' : '0 25 0 7.5' }"
+        [row]="isEven ? (i | evenPipe) : (i | oddPipe)" 
+        [col]="isEven ? 0 : 1"
         (tap)="navigate(item)">
         <FlexboxLayout flexDirection="row" flexWrap="wrap">
           <FlexboxLayout 
@@ -42,8 +42,6 @@
           </Image>
         </FlexboxLayout>
       </MDRipple>
-
-
-    </GridLayout>    
-  </GridLayout>
-</ScrollView>
+    </GridLayout>
+  </ScrollView>
+</GridLayout>
