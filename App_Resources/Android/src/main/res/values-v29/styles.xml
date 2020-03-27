@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Application theme -->
-    <style name="AppThemeBase29" parent="AppThemeBase21">
-        <item name="android:forceDarkAllowed">true</item>
-    </style>
+  <color name="my_white">#fff</color>
 
-    <style name="AppTheme" parent="AppThemeBase29">
-    </style>
+  <!-- Application theme -->
+  <style name="AppThemeBase29" parent="AppThemeBase21">
+    <item name="android:forceDarkAllowed">true</item>
+  </style>
+
+  <style name="AppTheme" parent="AppThemeBase29">
+    <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+  </style>
+
+  <style name="MyActionButtonOverflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
+    <item name="android:tint">@color/my_white</item>
+  </style>
 
 </resources>

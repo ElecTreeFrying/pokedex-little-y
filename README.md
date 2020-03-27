@@ -15,7 +15,7 @@
 ### Pokédex
 
 1. Lists all 14 pokédexes.
-2. Select a pokédex.
+2. Select one pokédex.
    -  Display all pokémon, filtered by selected selected pokédex.
       -  Select a pokémon.
          -  Display pokémon details. **→ TODO**
@@ -39,14 +39,12 @@
 ### Berries
 
 1. Lists 64 kinds of berries
-2. Select one berry
-    -  **→ TODO**
+2. Select a berry.
+    -  Display berry details
 
 ### Other features
 
 1. **→ TODO**
-2. **→ TODO**
-3. **→ TODO**
 
 ## Plugins used
 
@@ -108,7 +106,7 @@
 
 ## License
 
-Apache License 2.0
+Apache License Version 2.0
 
 [Angular + NativeScript]: https://www.nativescript.org/nativescript-is-how-you-build-native-mobile-apps-with-angular
 [PokéAPI]: https://pokeapi.co/

@@ -26,10 +26,10 @@ export class BerryDataComponent implements OnInit {
     this.berry = this.route.snapshot.data['resolve'];
     this.berry['item'] = this.api.berryEntries(this.berry['item_id']);
   }
-
+  
   onScroll(event: ScrollEventData) {
     this.isScrolled = event.scrollY === 0 ? false : true;
-  }  
+  }
   
   back() {
     this.router.navigate(['berries'], {

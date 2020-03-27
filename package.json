@@ -29,7 +29,6 @@
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
     "@nativescript/theme": "~2.3.3",
-    "chance": "^1.1.4",
     "lodash": "^4.17.15",
     "nativescript-angular": "~8.21.0",
     "nativescript-material-ripple": "^3.1.15",

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
-import { BehaviorSubject } from 'rxjs';
 import * as _ from 'lodash';
 
 export const color = {
@@ -31,13 +30,12 @@ export const color = {
 export class PokeApiService {
 
   private _id: number;
-  berryObserve = new BehaviorSubject<any>(null);
 
   private pokemonSpriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
   constructor(private http: HttpClient) { }
 
-  set id(id: any) { this._id = id; }
+  set id(id: number) { this._id = id; }
   get id() { return this._id; }
 
   counter: number = 0;
