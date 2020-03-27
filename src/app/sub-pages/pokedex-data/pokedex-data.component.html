@@ -11,27 +11,28 @@
 
 </ActionBar>
   
-<GridLayout class="container" rows="*" columns="*">
-  <ScrollView>
+<ScrollView>
+  <GridLayout class="container" rows="*" columns="*">
+
     <FlexboxLayout row="0" col="0" flexDirection="column">
       <MDRipple 
         rippleColor="#FFFFFF"
-        class="poke-nav"
+        class="nav"
         *ngFor="let item of pokemon.pokemon_entries; first as isFirst; last as isLast"
         [ngStyle]="{ 'margin': isFirst ? '20 20 4 20' : isLast ? '4 20 20 20' : '4 20 4 20' }"
         (tap)="toPokemon(item)">
         <FlexboxLayout flexDirection="row">
           <Label 
-            class="poke-label number"
+            class="label number"
             [text]="'#'+ item?.entry_number + ' '" 
             textTransform="capitalize"></Label>
           <Label 
-            class="poke-label name"
+            class="label name"
             [text]="item?.name" 
             textTransform="capitalize"></Label>
           <Label text="" flexGrow="1"></Label>
           <Image
-            class="poke-image" horizontalAlignment="right"
+            class="image" horizontalAlignment="right"
             decodeHeight="70"
             decodeWidth="70"
             width="70"
@@ -44,5 +45,6 @@
         </FlexboxLayout>
       </MDRipple>
     </FlexboxLayout>
-  </ScrollView>
-</GridLayout>
+
+  </GridLayout>
+</ScrollView>

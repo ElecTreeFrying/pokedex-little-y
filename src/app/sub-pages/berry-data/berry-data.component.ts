@@ -35,7 +35,7 @@ export class BerryDataComponent implements OnInit {
     this.router.navigate(['berries'], {
       animated: true,
       transition: {
-        name: 'slide',
+        name: 'slideRight',
         curve: AnimationCurve.cubicBezier(1,0,.5,1),
         duration: 500
       }

@@ -8,7 +8,9 @@ import { GenerationComponent } from './generation.component';
 
 
 @NgModule({
-  declarations: [GenerationComponent],
+  declarations: [
+    GenerationComponent
+  ],
   imports: [
     NativeScriptCommonModule,
     GenerationRoutingModule,

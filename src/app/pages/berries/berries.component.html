@@ -5,43 +5,41 @@
   
 </ActionBar>
 
-<GridLayout class="container" rows="*" columns="*">
-  <ScrollView>
-    <GridLayout class="nav-container" row="0" col="0" rows="85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85" columns="*,*">
-      <MDRipple 
-        rippleColor="#FFFFFF"
-        class="nav"
-        *ngFor="let item of (berries | async); index as i; even as isEven" 
-        [ngStyle]="{ 'margin': isEven ? '0 7.5 0 25' : '0 25 0 7.5' }"
-        [row]="isEven ? (i | evenPipe) : (i | oddPipe)" 
-        [col]="isEven ? 0 : 1"
-        (tap)="navigate(item)">
-        <FlexboxLayout flexDirection="row" flexWrap="wrap">
-          <FlexboxLayout 
-            class="home-label-wrapper"
-            flexDirection="column">
-            <Label
-              class="home-label"
-              [text]="item?.name">
-            </Label>
-            <Label
-              class="home-label suffix"
-              text="Berry">
-            </Label>
-          </FlexboxLayout>
-          <Label text="" flexGrow="1"></Label>
-          <Image
-            class="home-image" 
-            horizontalAlignment="right"
-            width="70"
-            height="70"
-            decodeHeight="70"
-            decodeWidth="70"
-            loadMode="async"
-            [src]="item?.image">
-          </Image>
+<ScrollView>
+  <GridLayout class="container" row="0" col="0" rows="85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85" columns="*,*">
+    <MDRipple 
+      rippleColor="#FFFFFF"
+      class="nav"
+      *ngFor="let item of (berries | async); index as i; even as isEven" 
+      [ngStyle]="{ 'margin': isEven ? '0 7.5 0 25' : '0 25 0 7.5' }"
+      [row]="isEven ? (i | evenPipe) : (i | oddPipe)" 
+      [col]="isEven ? 0 : 1"
+      (tap)="navigate(item)">
+      <FlexboxLayout flexDirection="row" flexWrap="wrap">
+        <FlexboxLayout 
+          class="label-wrapper"
+          flexDirection="column">
+          <Label
+            class="label"
+            [text]="item?.name">
+          </Label>
+          <Label
+            class="label suffix"
+            text="Berry">
+          </Label>
         </FlexboxLayout>
-      </MDRipple>
-    </GridLayout>
-  </ScrollView>
-</GridLayout>
+        <Label text="" flexGrow="1"></Label>
+        <Image
+          class="image" 
+          horizontalAlignment="right"
+          width="70"
+          height="70"
+          decodeHeight="70"
+          decodeWidth="70"
+          loadMode="async"
+          [src]="item?.image">
+        </Image>
+      </FlexboxLayout>
+    </MDRipple>
+  </GridLayout>
+</ScrollView>

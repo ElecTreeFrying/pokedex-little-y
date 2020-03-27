@@ -26,7 +26,7 @@ export class PokedexComponent implements OnInit {
 
   navigate(item) {
     this.api.id = item['id'];
-    this.router.navigate(['type-data'], {
+    this.router.navigate(['pokedex-data'], {
       animated: true,
       transition: {
         name: 'slide',

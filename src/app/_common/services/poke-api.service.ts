@@ -46,7 +46,7 @@ export class PokeApiService {
 
   get homeData() {
     this.counter = 0;
-    return this.http.get('https://pokeapi.co/api/v2/pokedex/1/').pipe(
+    return this.http.get('https://pokeapi.co/api/v2/pokedex/2/').pipe(
       map((e) => e['pokemon_entries']),
       map((pokemon_entries: any[]) => {
         return pokemon_entries.map((pokemon) => {

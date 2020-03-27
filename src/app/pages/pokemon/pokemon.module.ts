@@ -6,6 +6,7 @@ import { ExportGridPipeModule } from "../../_common/modules/export-grid-pipe.mod
 
 import { PokemonComponent } from './pokemon.component';
 
+
 @NgModule({
   declarations: [
     PokemonComponent
