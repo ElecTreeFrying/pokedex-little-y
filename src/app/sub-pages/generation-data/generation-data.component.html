@@ -1,20 +1,30 @@
 <ActionBar class="action-bar" [title]="generation?.name + ' - Pokémon'">
   
-  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
+  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="back()"></NavigationButton>
   
 </ActionBar>
 
-<GridLayout row="*" col="*">
-  <ScrollView row="0" col="0">
-    <ListView [items]="generation?.pokemon_species">
-      <ng-template let-item="item" let-i="index">
-        
+<GridLayout class="container" rows="*" columns="*">
+  <ScrollView>
+    <FlexboxLayout row="0" col="0" flexDirection="column">
+      <MDRipple 
+        rippleColor="#FFFFFF"
+        class="poke-nav"
+        *ngFor="let item of generation?.pokemon_species; first as isFirst; last as isLast"
+        [ngStyle]="{ 'margin': isFirst ? '20 20 4 20' : isLast ? '4 20 20 20' : '4 20 4 20' }"
+        (tap)="toPokemon(item)">
         <FlexboxLayout flexDirection="row">
-          <Label [text]="'#' + item?.entry_number" textTransform="capitalize" class="home-nav"></Label>
-          <Label [text]="item?.name" textTransform="capitalize" class="home-nav"></Label>
+          <Label 
+            class="poke-label number"
+            [text]="'#'+ item?.entry_number + ' '" 
+            textTransform="capitalize"></Label>
+          <Label 
+            class="poke-label name"
+            [text]="item?.name" 
+            textTransform="capitalize"></Label>
           <Label text="" flexGrow="1"></Label>
           <Image
-            class="home-image" horizontalAlignment="right"
+            class="poke-image" horizontalAlignment="right"
             decodeHeight="70"
             decodeWidth="70"
             width="70"
@@ -25,8 +35,7 @@
             [src]="item?.image">
           </Image>
         </FlexboxLayout>
-
-      </ng-template>
-    </ListView>
+      </MDRipple>
+    </FlexboxLayout>
   </ScrollView>
 </GridLayout>

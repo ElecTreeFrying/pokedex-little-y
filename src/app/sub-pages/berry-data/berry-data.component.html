@@ -1,180 +1,297 @@
 <ActionBar class="action-bar" title="Berry">
   
-  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
+  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="back()"></NavigationButton>
   
 </ActionBar>
 
-<ScrollView class="container">
-  <GridLayout class="layout" rows="auto,auto,auto, auto" columns="*">
+<GridLayout 
+  class="container"
+  rows="auto,auto,auto,*" columns="*">
 
-    <FlexboxLayout 
-      row="0" col="0"
-      class="head" 
-      justifyContent="center">
-      
-      <FlexboxLayout class="text" alignItems="center">
-        <Label
-          class="text"
-          [text]="berry?.name + ' Berry'"
-          textAlignment="center"
-          textTransform="capitalize">
-        </Label>
-      </FlexboxLayout>
-  
-      <FlexboxLayout class="image">
-        <Image
-          class="image"
-          width="40"
-          height="40"
-          decodeHeight="40"
-          decodeWidth="40"
-          loadMode="async"
-          [src]="berry?.image">
-        </Image>
-      </FlexboxLayout>
-      
-    </FlexboxLayout>
+  <FlexboxLayout
+    class="head layout" 
+    row="0" col="0">
+    <Label class="text" text="Berry details"></Label>
+  </FlexboxLayout>
 
-    <StackLayout 
-      row="1" col="0"
-      class="hr">
-    </StackLayout>
+  <FlexboxLayout
+    class="image layout"
+    row="1" col="0" 
+    justifyContent="center"
+    flexDirection="column">
+    <Image
+      width="120"
+      height="120"
+      decodeHeight="120"
+      decodeWidth="120"
+      loadMode="async"
+      [src]="berry?.image">
+    </Image>
+    <Label
+      class="text"
+      [text]="berry?.name + ' Berry'"
+      textAlignment="center"
+      textTransform="capitalize">
+    </Label>
+  </FlexboxLayout>
 
-    <GridLayout
-      row="2" col="0"
-      rows="auto" columns="*,*"
-      class="display">
+  <FlexboxLayout
+    *ngIf="isScrolled"
+    class="scroll-line layout"
+    row="2" col="0"
+    justifyContent="center">
+    <StackLayout class="hr"></StackLayout>
+  </FlexboxLayout>
+
+  <ScrollView 
+    row="3" col="0"
+    (scroll)="onScroll($event)">
+    <GridLayout rows="auto,auto,auto,auto,auto,auto" columns="*">
       
-      <FlexboxLayout 
+      <FlexboxLayout
+        class="details layout"
         row="0" col="0"
-        id="left"
-        flexGrow="1"
-        justifyContent="center" 
-        class="bo">
+        flexWrap="wrap"
+        justifyContent="center"
+        flexDirection="row">
+
+        <FlexboxLayout
+          class="firmness"
+          flexDirection="column">
+          <FlexboxLayout
+            class="key"
+            justifyContent="center">
+            <Label text="Firmness"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value"
+            justifyContent="center">
+            <Label [text]="berry?.firmness" textTransform="capitalize"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+        <FlexboxLayout
+          class="size"
+          flexDirection="column">
+          <FlexboxLayout 
+            class="key"
+            justifyContent="center">
+            <Label text="Size"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value"
+            justifyContent="center">
+            <Label [text]="berry?.size + ' cm'"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+        <FlexboxLayout
+          class="growth_time"
+          flexWrapBefore="true"
+          flexDirection="column">
+          <FlexboxLayout 
+            class="key"
+            justifyContent="center">
+            <Label text="Growth time"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value"
+            justifyContent="center">
+            <Label [text]="berry?.growth_time + (berry?.growth_time > 1 ? ' hrs' : ' hr')"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+        <FlexboxLayout
+          class="max_harvest"
+          flexDirection="column">
+          <FlexboxLayout 
+            class="key"
+            justifyContent="center">
+            <Label text="Max harvest"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value"
+            justifyContent="center">
+            <Label [text]="berry?.max_harvest + (berry?.max_harvest > 1 ? ' pcs' : ' pc')"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+        <FlexboxLayout
+          class="soil_dryness"
+          flexWrapBefore="true"
+          flexDirection="column">
+          <FlexboxLayout 
+            class="key"
+            justifyContent="center">
+            <Label text="Soil dryness"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value"
+            justifyContent="center">
+            <Label [text]="berry?.soil_dryness + '%'"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+        <FlexboxLayout
+          class="smoothness"
+          flexDirection="column">
+          <FlexboxLayout
+            class="key"
+            justifyContent="center">
+            <Label text="Smoothness"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value"
+            justifyContent="center">
+            <Label [text]="berry?.smoothness + '%'"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+        
+      </FlexboxLayout>
+      
+      <FlexboxLayout
+        class="about layout"
+        justifyContent="center"
+        row="1" col="0">
+        <FlexboxLayout
+          class="inner"
+          justifyContent="flex-start">
+          <Label text="Summary"></Label>
+        </FlexboxLayout>
+      </FlexboxLayout>
+
+      <FlexboxLayout
+        class="entries layout"
+        row="2" col="0"
+        justifyContent="center"
+        flexWrap="wrap"
+        flexDirection="row">
         
         <FlexboxLayout
-          flexDirection="column"
-          class="left-inner">
-          <Image
-            class="image bo"
-            width="120"
-            height="120"
-            decodeHeight="120"
-            decodeWidth="120"
-            loadMode="async"
-            [src]="berry?.image">
-          </Image>
-          <Label
-            class="text"
-            [text]="berry?.name + ' Berry'"
-            textAlignment="center"
-            textTransform="capitalize">
-          </Label>
+          class="effect"
+          flexDirection="column">
+          <FlexboxLayout
+            class="key">
+            <Label 
+              text="Effect">
+            </Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value">
+            <Label 
+              [text]="(berry?.item | async)?.effect_entries?.effect"
+              textAlignment="left"
+              textWrap="true">
+            </Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+        
+        <FlexboxLayout
+          class="effect short"
+          flexWrapBefore="true"
+          flexDirection="column">
+          <FlexboxLayout
+            class="key">
+            <Label 
+              text="Short effect">
+            </Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value">
+            <Label 
+              [text]="(berry?.item | async)?.effect_entries?.short_effect"
+              textAlignment="left"
+              textWrap="true">
+            </Label>
+          </FlexboxLayout>
         </FlexboxLayout>
 
       </FlexboxLayout>
 
-      <FlexboxLayout 
-        row="0" col="1"
-        id="right"
-        flexGrow="1" flexDirection="column" class="bo">
-
-        <FlexboxLayout>
-          <Label
-            class="text"
-            [text]="berry?.firmness"
-            textAlignment="left"
-            textTransform="capitalize">
-          </Label>
-          <Label
-            class="text"
-            [text]="berry?.size + ' cm'"
-            textAlignment="left">
-          </Label>  
-        </FlexboxLayout>
-
-        <FlexboxLayout>
-          <Label
-            class="text"
-            [text]="berry?.firmness"
-            textAlignment="left"
-            textTransform="capitalize">
-          </Label>
-          <Label
-            class="text"
-            [text]="berry?.size + ' cm'"
-            textAlignment="left">
-          </Label>  
-        </FlexboxLayout>
+      <FlexboxLayout
+        class="flavors layout"
+        justifyContent="center"
+        flexDirection="row"
+        row="3" col="0">
         
+        <FlexboxLayout
+          class="content"
+          flexDirection="column">
+          <FlexboxLayout
+            class="key">
+            <Label text="Flavors"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value">
+            <FlexboxLayout flexDirection="column">
+              <Label 
+                *ngFor="let item of berry?.flavors" class="flavor" [text]="item?.name + ':'"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout flexDirection="column">
+              <FlexboxLayout
+                *ngFor="let item of berry?.flavors">
+                <Label *ngFor="let square of item.potency" class="box" text=""></Label>
+              </FlexboxLayout>
+            </FlexboxLayout>
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+      </FlexboxLayout>
+
+      <FlexboxLayout
+        class="versions layout"
+        justifyContent="center"
+        flexDirection="row"
+        row="4" col="0">
+        
+        <FlexboxLayout
+          class="content"
+          flexDirection="column">
+          <FlexboxLayout
+            class="key">
+            <Label text="Flavor entries"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout 
+            class="value"
+            flexDirection="column">
+
+              <FlexboxLayout
+                *ngFor="let entry of (berry?.item | async)?.flavor_text_entries; first as isFirst" 
+                [ngStyle]="{ 'margin-top': isFirst ? '10' : 0 }"
+                class="inner-content"
+                flexDirection="column">
+                <FlexboxLayout
+                  class="key">
+                  <Label textWrap="true" [text]="entry?.version"></Label>
+                </FlexboxLayout>
+                <FlexboxLayout 
+                  class="value">
+                  <Label textWrap="true" [text]="entry?.text"></Label>
+                </FlexboxLayout>
+              </FlexboxLayout>
+
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+      </FlexboxLayout>
+
+      <FlexboxLayout
+        class="credits layout"
+        alignItems="center"
+        flexDirection="column"
+        row="5" col="0">
+        <Label ngClass]="{ bo: isBorder }" 
+          class="app"
+          text="Pokédex Little 2020"></Label>
+        <Label ngClass]="{ bo: isBorder }"
+          class="developer" 
+          text="by ElecTreeFrying"></Label>
       </FlexboxLayout>
 
     </GridLayout>
+  </ScrollView>
+
+</GridLayout>
 
 
-    <FlexboxLayout *ngIf="false"
-      class="row-all"
-      row="3" col="0" flexDirection="column">
-      
-      <Label
-        class="text"
-        [text]="berry?.firmness"
-        textAlignment="left"
-        textTransform="capitalize">
-      </Label>
-      <Label
-        class="text"
-        [text]="berry?.size + ' cm'"
-        textAlignment="left">
-      </Label>
-      <Label
-        class="text"
-        [text]="'Growth time: ' + berry?.growth_time + 'hrs'"
-        textAlignment="left">
-      </Label>
-      <Label
-        class="text"
-        [text]="'Max harvest: ' + berry?.max_harvest + 'pc(s)'"
-        textAlignment="left">
-      </Label>
-      <Label
-        class="text"
-        [text]="'Soil dryness: ' + berry?.soil_dryness + '%'"
-        textAlignment="left">
-      </Label>
-      <Label
-        class="text"
-        [text]="'Smoothness: ' + berry?.smoothness + '%'"
-        textAlignment="left">
-      </Label>
-      <Image
-        class="image"
-        width="120"
-        height="120"
-        decodeHeight="120"
-        decodeWidth="120"
-        loadMode="async"
-        [src]="berry?.image">
-      </Image>
-      <Label
-        class="text"
-        [text]="berry?.name + ' Berry'"
-        textAlignment="center"
-        textTransform="capitalize">
-      </Label>
-      <Label
-        class="text"
-        text="Details"
-        textAlignment="left">
-      </Label>
-      <Label
-        class="text"
-        [text]="(berry?.item_data | async)?.effect_entries?.effect"
-        textAlignment="left"
-        textWrap="true">
-      </Label>
-  
-    </FlexboxLayout>
-  
-  </GridLayout>
-</ScrollView>
+

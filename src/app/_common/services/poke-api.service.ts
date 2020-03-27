@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
 import { BehaviorSubject } from 'rxjs';
+import * as _ from 'lodash';
 
 export const color = {
   default: {
@@ -55,7 +56,7 @@ export class PokeApiService {
           pokemon['image'] = this.pokemonSpriteURL + id + '.png';
           delete pokemon['pokemon_species'];
           return pokemon;
-        }).slice(0, 10);
+        });
       })
     )
   }
@@ -134,10 +135,8 @@ export class PokeApiService {
   berryEntries(id: number) {
     return this.http.get(`https://pokeapi.co/api/v2/item/${id}/`).pipe(
       map((item) => {
-        
-        
 
-        let effect_entries = item['effect_entries']
+        const effect_entries = item['effect_entries']
           .filter(e => e.language.name === 'en')
           .map((entry: any) => {
             entry['effect'] = entry['effect']
@@ -153,6 +152,7 @@ export class PokeApiService {
           .map((entry: any) => {
             entry['language'] = entry['language']['name'];
             entry['text'] = entry['text'].replace(/\n/g, ' ');
+            entry['id'] = +entry['version_group']['url'].split('/').reverse()[1];
             entry['version_group'] = entry['version_group']['name'];
             entry['version'] = 'Pokémon ' + entry['version_group']
               .replace('red-blue', 'red-and-blue')
@@ -174,6 +174,8 @@ export class PokeApiService {
             delete entry['language'];
             return entry;
           });
+        
+        flavor_text_entries = _.sortBy(flavor_text_entries, [ 'id' ])
         
         return { effect_entries, flavor_text_entries };
       })

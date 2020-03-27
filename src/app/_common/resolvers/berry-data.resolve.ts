@@ -33,6 +33,8 @@ export class BerryDataResolve implements Resolve<any> {
         berry['flavors'].map((flavor) => {
           const name = flavor['flavor']['name'];
           flavor['name'] = `${name[0].toUpperCase()}${name.slice(1)}`;
+          flavor['potency'] = +flavor['potency'] === 0 ? 1 : +flavor['potency'];
+          flavor['potency'] = new Array(flavor['potency']);
           delete flavor['flavor'];
           return flavor;
         });

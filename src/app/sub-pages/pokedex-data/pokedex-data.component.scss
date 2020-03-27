@@ -1,14 +1,19 @@
 
-.fa-arrow-left {
-  font-size: 6.5;
-  color: black;
-}
+.poke-nav {
+  border-radius: 7;
+  background-color: #4E1338;
 
-.home-image {
-  margin: 0 10 0 0;
-}
+  .poke-label {
+    font-size: 18;
+    font-family: 'Poppins', 'Poppins-Regular';
+    margin-top: 7.5;
 
-.home-nav {
-  font-size: 18;
-  font-family: 'Poppins', 'Poppins-Regular';
+    &.number {
+      margin-left: 12.5;
+    }
+  }
+  
+  .poke-image {
+    margin: 0 10 0 0;
+  }
 }

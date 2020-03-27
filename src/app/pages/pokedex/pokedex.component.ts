@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from 'nativescript-angular/router';
 import * as app from "tns-core-modules/application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { AnimationCurve } from 'tns-core-modules/ui/enums';
 
 import { PokeApiService } from "../../_common/services/poke-api.service";
 
@@ -10,7 +11,7 @@ import { PokeApiService } from "../../_common/services/poke-api.service";
   templateUrl: './pokedex.component.html',
   styleUrls: ['./pokedex.component.scss']
 })
-export class PokedexComponent implements OnInit, OnDestroy {
+export class PokedexComponent implements OnInit {
 
   pokedex: any;
   
@@ -23,19 +24,21 @@ export class PokedexComponent implements OnInit, OnDestroy {
     this.pokedex = this.api.pokedexData;
   }
 
-  ngOnDestroy() {
-  }
-
   navigate(item) {
     this.api.id = item['id'];
-    this.router.navigate(['pokedex-data']);
+    this.router.navigate(['type-data'], {
+      animated: true,
+      transition: {
+        name: 'slide',
+        curve: AnimationCurve.cubicBezier(1,0,.5,1),
+        duration: 500
+      }
+    });
   }
 
   onShow() {
     const drawer = <RadSideDrawer>app.getRootView();
     drawer.showDrawer();
   }
-
-  
   
 }
