@@ -27,9 +27,9 @@ export class TypeDataResolve implements Resolve<any> {
         const pokemon = type['pokemon'].map((monster: any) => {
           let name = monster['pokemon']['name'];
           name = name[0].toUpperCase() + name.slice(1);
-          const entry_number = monster['pokemon']['url'].split('/').reverse()[1];
+          const entry_number = +monster['pokemon']['url'].split('/').reverse()[1];
           const image = `${this.sprite}${entry_number}.png`;
-          return { name, entry_number, image }
+          return { name, entry_number, image, id: entry_number }
         });
         return { name, pokemon, damage_relations };
       })

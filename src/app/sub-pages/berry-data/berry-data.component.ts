@@ -15,6 +15,7 @@ export class BerryDataComponent implements OnInit {
 
   berry: any;
   isScrolled: boolean = true;
+  width: number = 20;
 
   constructor(
     public router: RouterExtensions,
@@ -25,6 +26,7 @@ export class BerryDataComponent implements OnInit {
   ngOnInit(): void {
     this.berry = this.route.snapshot.data['resolve'];
     this.berry['item'] = this.api.berryEntries(this.berry['item_id']);
+    this.width = this.berry['width'];
   }
   
   onScroll(event: ScrollEventData) {

@@ -1,1 +1,15 @@
-<Button text="pokemon-data works!" class="btn btn-primary"></Button>
+
+
+<ActionBar class="action-bar" [title]="'Pokémon'">
+  
+  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="back()"></NavigationButton>
+  
+</ActionBar>
+
+<ScrollView>
+  <GridLayout class="container" rows="*" columns="*">
+
+    <Button row="0" col="0" text="pokemon-data works!" class="btn btn-primary"></Button>
+
+  </GridLayout>
+</ScrollView>

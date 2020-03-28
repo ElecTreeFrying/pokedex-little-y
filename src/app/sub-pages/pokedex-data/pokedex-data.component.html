@@ -1,5 +1,5 @@
 
-<ActionBar class="action-bar" [title]="pokemon?.name + ' Pokédex'">
+<ActionBar class="action-bar" [title]="pokemon?.name + ' Pokédex'" (loaded)="onActionBarLoaded($event)">
   
   <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="back()"></NavigationButton>
   

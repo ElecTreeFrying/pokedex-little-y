@@ -1,0 +1,28 @@
+{
+  "files.exclude": {
+    "**/hooks/": true,
+    "**/node_modules/": true,
+    "**/platforms/": true,
+    "**/*.js.map": true,
+    "**/*.js": true,
+    "**/webpack.config.js": false,
+    "**/logs": true,
+    "**/*.log": true,
+    "**/npm-debug.log*": true,
+    "**/yarn-debug.log*": true,
+    "**/yarn-error.log*": true,
+    "**/.DS_Store": true,
+    "**/.AppleDouble": true,
+    "**/.LSOverride": true,
+    "**/.idea": true,
+    "**/.cloud": true,
+    "**/.project": true,
+    "**/tmp/": true,
+    "**/typings/": true,
+    ".vscode/*": true,
+    ".vscode/settings.json": false,
+    ".vscode/tasks.json": false,
+    ".vscode/launch.json": false,
+    ".vscode/extensions.json": false
+  }
+}

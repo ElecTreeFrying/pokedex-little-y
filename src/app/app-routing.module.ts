@@ -6,6 +6,7 @@ import { PokedexDataResolve } from "./_common/resolvers/pokedex-data.resolve";
 import { TypeDataResolve } from "./_common/resolvers/type-data.resolve";
 import { GenerationDataResolve } from "./_common/resolvers/generation-data.resolve";
 import { BerryDataResolve } from "./_common/resolvers/berry-data.resolve";
+import { PokemonDataResolve } from "./_common/resolvers/pokemon-data.resolve";
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -15,6 +16,11 @@ const routes: Routes = [
   { path: "generation", loadChildren: () => import("~/app/pages/generation/generation.module").then((m) => m.GenerationModule) },
   { path: "berries", loadChildren: () => import("~/app/pages/berries/berries.module").then((m) => m.BerriesModule) },
   { 
+    path: "pokemon-data", 
+    loadChildren: () => import("~/app/sub-pages/pokemon-data/pokemon-data.module").then((m) => m.PokemonDataModule),
+    resolve: { resolve: PokemonDataResolve }
+  },
+  {
     path: "pokedex-data", 
     loadChildren: () => import("~/app/sub-pages/pokedex-data/pokedex-data.module").then((m) => m.PokedexDataModule),
     resolve: { resolve: PokedexDataResolve }

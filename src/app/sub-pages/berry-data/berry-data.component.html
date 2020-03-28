@@ -230,7 +230,7 @@
             <FlexboxLayout flexDirection="column">
               <FlexboxLayout
                 *ngFor="let item of berry?.flavors">
-                <Label *ngFor="let square of item.potency" class="box" text=""></Label>
+                <Label *ngFor="let square of item.potency" [width]="width" class="box" text=""></Label>
               </FlexboxLayout>
             </FlexboxLayout>
           </FlexboxLayout>
@@ -249,7 +249,7 @@
           flexDirection="column">
           <FlexboxLayout
             class="key">
-            <Label text="Flavor entries"></Label>
+            <Label text="Text entries"></Label>
           </FlexboxLayout>
           <FlexboxLayout 
             class="value"

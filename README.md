@@ -9,10 +9,14 @@
 
 ### Home
 
+[demo][home]
+
 1. Lists entire national pokédex.
 2. Select a pokémon
 
 ### Pokédex
+
+[demo][pokedex]
 
 1. Lists all 14 pokédexes.
 2. Select one pokédex.
@@ -22,6 +26,8 @@
 
 ### Pokémon
 
+[demo][pokemon]
+
 1. Lists all 18 pokémon types.
 2. Select one pokémon type.
    -  Display all pokémon, filtered by selected type .
@@ -29,6 +35,8 @@
          -  Display pokémon details. **→ TODO**
 
 ### Generation
+
+[demo][generation]
 
 1. Lists all 7 pokémon generations.
 2. Select one generation.
@@ -38,13 +46,20 @@
 
 ### Berries
 
+[demo][berries]
+
 1. Lists 64 kinds of berries
 2. Select a berry.
     -  Display berry details
+    -  Game indices **→ TODO**
 
-### Other features
+### TODO
 
-1. **→ TODO**
+1. Autocomplete pokemon and berries.
+2. Pokemon moves.
+3. Pokemon items.
+4. Pokemon locations.
+5. Add more details to sidebar.
 
 ## Plugins used
 
@@ -107,6 +122,12 @@
 ## License
 
 Apache License Version 2.0
+
+[home]: https://
+[pokedex]: https://
+[pokemon]: https://
+[generation]: https://
+[berries]: https://
 
 [Angular + NativeScript]: https://www.nativescript.org/nativescript-is-how-you-build-native-mobile-apps-with-angular
 [PokéAPI]: https://pokeapi.co/

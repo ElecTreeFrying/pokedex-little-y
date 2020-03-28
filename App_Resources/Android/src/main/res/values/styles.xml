@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <color name="my_white">#fff</color>
 
   <!-- theme to use FOR launch screen-->
   <style name="LaunchScreenThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
@@ -30,11 +29,6 @@
   </style>
 
   <style name="AppTheme" parent="AppThemeBase">
-    <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
-  </style>
-
-  <style name="MyActionButtonOverflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
-    <item name="android:tint">@color/my_white</item>
   </style>
 
   <!-- theme for action-bar -->

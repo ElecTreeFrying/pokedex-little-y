@@ -30,6 +30,19 @@ export class BerryDataResolve implements Resolve<any> {
         berry['firmness'] = `${firmness[0].toUpperCase()}${firmness.slice(1)}`.replace('-', ' ');
         berry['item_id'] = +berry['item']['url'].split('/').reverse()[1];
 
+        const has15 = berry['flavors'].filter(e => e['potency'] === 15).length > 0;
+        const has20 = berry['flavors'].filter(e => e['potency'] === 20).length > 0;
+        const has25 = berry['flavors'].filter(e => e['potency'] === 25).length > 0;
+        const has30 = berry['flavors'].filter(e => e['potency'] === 30).length > 0;
+        const has40 = berry['flavors'].filter(e => e['potency'] === 40).length > 0;
+
+        if (has15)      { berry['width'] = 12; } 
+        else if (has20) { berry['width'] = 9; } 
+        else if (has25) { berry['width'] = 7; } 
+        else if (has30) { berry['width'] = 5; } 
+        else if (has40) { berry['width'] = 3; }
+        else            { berry['width'] = 20; }
+
         berry['flavors'].map((flavor) => {
           const name = flavor['flavor']['name'];
           flavor['name'] = `${name[0].toUpperCase()}${name.slice(1)}`;

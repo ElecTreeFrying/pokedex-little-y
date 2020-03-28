@@ -30,6 +30,7 @@ export const color = {
 export class PokeApiService {
 
   private _id: number;
+  private _route: string;
 
   private pokemonSpriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
@@ -37,6 +38,9 @@ export class PokeApiService {
 
   set id(id: number) { this._id = id; }
   get id() { return this._id; }
+
+  set lastRoute(route: string) { this._route = route; }
+  get lastRoute() { return this._route; }
 
   counter: number = 0;
   increase() { return this.counter++; }
@@ -49,8 +53,9 @@ export class PokeApiService {
       map((pokemon_entries: any[]) => {
         return pokemon_entries.map((pokemon) => {
           const id = pokemon['entry_number']
-          pokemon['entry_number'] = `#${id}`
+          pokemon['entry_number'] = +pokemon['entry_number']
           pokemon['name'] = pokemon['pokemon_species']['name'];
+          pokemon['id'] = pokemon['pokemon_species']['url'].split('/').reverse()[1];
           pokemon['image'] = this.pokemonSpriteURL + id + '.png';
           delete pokemon['pokemon_species'];
           return pokemon;
@@ -152,22 +157,7 @@ export class PokeApiService {
             entry['text'] = entry['text'].replace(/\n/g, ' ');
             entry['id'] = +entry['version_group']['url'].split('/').reverse()[1];
             entry['version_group'] = entry['version_group']['name'];
-            entry['version'] = 'Pokémon ' + entry['version_group']
-              .replace('red-blue', 'red-and-blue')
-              .replace('gold-silver', 'gold-and-silver')
-              .replace('ruby-sapphire', 'ruby-and-sapphire')
-              .replace('firered-leafgreen', 'fire-red-and-leafy-green')
-              .replace('diamond-pearl', 'diamond-and-pearl')
-              .replace('heartgold-soulsilver', 'heart-gold-and-soul-silver')
-              .replace('black-white', 'black-and-white')
-              .replace('black-2-white-2', 'black-2-and-white-2')
-              .replace('x-y', 'x-and-y')
-              .replace('omega-ruby-alpha-sapphire', 'omega-ruby-and-alpha-sapphire')
-              .replace('sun-moon', 'sun-and-moon')
-              .replace('ultra-sun-ultra-moon', 'ultra-sun-and-ultra-moon')
-              .split('-')
-              .map((a: string) => a[0].toUpperCase() + a.slice(1))
-              .join(' ').replace('And', 'and') + ' Version';
+            entry['version'] = 'Pokémon ' + this.versionGroupPretty(entry['version_group']);
             
             delete entry['language'];
             return entry;
@@ -178,6 +168,24 @@ export class PokeApiService {
         return { effect_entries, flavor_text_entries };
       })
     );
+  }
+
+  versionGroupPretty(group: string) {
+    return group.replace('red-blue', 'red-and-blue')
+    .replace('gold-silver', 'gold-and-silver')
+    .replace('ruby-sapphire', 'ruby-and-sapphire')
+    .replace('firered-leafgreen', 'fire-red-and-leafy-green')
+    .replace('diamond-pearl', 'diamond-and-pearl')
+    .replace('heartgold-soulsilver', 'heart-gold-and-soul-silver')
+    .replace('black-white', 'black-and-white')
+    .replace('black-2-white-2', 'black-2-and-white-2')
+    .replace('x-y', 'x-and-y')
+    .replace('omega-ruby-alpha-sapphire', 'omega-ruby-and-alpha-sapphire')
+    .replace('sun-moon', 'sun-and-moon')
+    .replace('ultra-sun-ultra-moon', 'ultra-sun-and-ultra-moon')
+    .split('-')
+    .map((a: string) => a[0].toUpperCase() + a.slice(1))
+    .join(' ').replace('And', 'and') + ' Version';
   }
   
 }

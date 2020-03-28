@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { EventData } from 'tns-core-modules/data/observable';
+import { ActionBar } from 'tns-core-modules/ui/action-bar';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 import { alert } from 'tns-core-modules/ui/dialogs';
 
@@ -26,6 +28,16 @@ export class PokedexDataComponent implements OnInit {
 
   toPokemon(pokemon: any) {
     console.log('pokemon selected →', pokemon);
+  }
+
+  onActionBarLoaded(event: EventData) {
+    const object = <ActionBar>event.object;
+
+    const overflowIcon = object.nativeView.getOverflowIcon();
+    overflowIcon.setColorFilter(
+      android.graphics.Color.parseColor('#FFFFFF'),
+      android.graphics.PorterDuff.Mode.SRC_ATOP,
+    );
   }
 
   back() {
