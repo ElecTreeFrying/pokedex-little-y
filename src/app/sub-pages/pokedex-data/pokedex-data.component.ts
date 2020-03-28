@@ -6,6 +6,8 @@ import { ActionBar } from 'tns-core-modules/ui/action-bar';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 import { alert } from 'tns-core-modules/ui/dialogs';
 
+import { DexObjectService } from "../../_common/services/dex-object.service";
+
 @Component({
   selector: 'ns-pokedex-data',
   templateUrl: './pokedex-data.component.html',
@@ -18,11 +20,15 @@ export class PokedexDataComponent implements OnInit {
 
   constructor(
     public router: RouterExtensions,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private object: DexObjectService
   ) { }
 
   ngOnInit(): void {
     this.pokemon = this.route.snapshot.data['resolve'];
+    this.pokemon['description'] = this.object.description(this.pokemon['description']);
+    this.pokemon['name'] = this.object.names(this.pokemon['name']);
+    this.pokemon['pokemon_entries'] = this.object.pokemonSpecies(this.pokemon['pokemon_entries']);
     this.isShowActionItem = this.pokemon.description.length > 0;
   }
 

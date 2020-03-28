@@ -3,6 +3,8 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 
+import { GenObjectService } from "../../_common/services/gen-object.service";
+
 @Component({
   selector: 'ns-generation-data',
   templateUrl: './generation-data.component.html',
@@ -14,11 +16,14 @@ export class GenerationDataComponent implements OnInit {
 
   constructor(
     public router: RouterExtensions,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private object: GenObjectService
   ) { }
 
   ngOnInit(): void {
     this.generation = this.route.snapshot.data['resolve'];
+    this.generation['name'] = this.object.name(this.generation['name']);
+    this.generation['pokemon_species'] = this.object.pokemonSpecies(this.generation['pokemon_species']);
   }
 
   toPokemon(pokemon: any) {

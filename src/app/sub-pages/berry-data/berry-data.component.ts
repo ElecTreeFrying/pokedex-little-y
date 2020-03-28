@@ -5,6 +5,7 @@ import { ScrollEventData } from 'tns-core-modules/ui/scroll-view';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 
 import { PokeApiService } from "../../_common/services/poke-api.service";
+import { BerryObjectService } from "../../_common/services/berry-object.service";
 
 @Component({
   selector: 'ns-berry-data',
@@ -20,13 +21,15 @@ export class BerryDataComponent implements OnInit {
   constructor(
     public router: RouterExtensions,
     private route: ActivatedRoute,
-    private api: PokeApiService
+    private api: PokeApiService,
+    private object: BerryObjectService
   ) { }
 
   ngOnInit(): void {
     this.berry = this.route.snapshot.data['resolve'];
+    this.width = this.object.width(this.berry['flavors'])
     this.berry['item'] = this.api.berryEntries(this.berry['item_id']);
-    this.width = this.berry['width'];
+    this.berry['flavors'] = this.object.flavors(this.berry['flavors'])
   }
   
   onScroll(event: ScrollEventData) {

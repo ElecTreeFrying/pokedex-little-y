@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
+
 import { PokeApiService } from "../../_common/services/poke-api.service";
+import { PokeObjectService } from "../../_common/services/poke-object.service";
 
 
 @Component({
@@ -17,12 +19,15 @@ export class PokemonDataComponent implements OnInit {
   constructor(
     public router: RouterExtensions,
     private route: ActivatedRoute,
-    private api: PokeApiService
+    private api: PokeApiService,
+    private object: PokeObjectService
   ) { }
 
   ngOnInit(): void {
     this.pokemon = this.route.snapshot.data['resolve'];
-    console.log(this.pokemon);
+    this.pokemon['abilities'] = this.object.abilities(this.pokemon['abilities']);
+    this.pokemon['moves'] = this.object.moves(this.pokemon['moves']);
+    this.pokemon['species'] = this.object.species(this.pokemon['species']);
   }
 
   back() {

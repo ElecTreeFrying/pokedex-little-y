@@ -3,6 +3,8 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 
+import { TypeObjectService } from "../../_common/services/type-object.service";
+
 @Component({
   selector: 'ns-type-data',
   templateUrl: './type-data.component.html',
@@ -14,11 +16,14 @@ export class TypeDataComponent implements OnInit {
 
   constructor(
     public router: RouterExtensions,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private object: TypeObjectService
   ) { }
 
   ngOnInit(): void {
     this.types = this.route.snapshot.data['resolve'];
+    this.types['name'] = this.object.name(this.types['name']);
+    this.types['pokemon'] = this.object.pokemon(this.types['pokemon']);
   }
 
   toPokemon(pokemon: any) {

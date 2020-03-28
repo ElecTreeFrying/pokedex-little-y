@@ -10,8 +10,6 @@ import { PokeApiService } from "../services/poke-api.service";
 })
 export class PokedexDataResolve implements Resolve<any> {
   
-  sprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
-
   constructor(
     private http: HttpClient,
     private api: PokeApiService,
@@ -22,15 +20,9 @@ export class PokedexDataResolve implements Resolve<any> {
     const id = this.api.id;
     return this.http.get(`https://pokeapi.co/api/v2/pokedex/${id}`).pipe(
       map((pokedex: any) => {
-        const description = pokedex['descriptions'].find(e => e['language']['name'] === 'en').description;
-        const name = pokedex['names'].find(e => e['language']['name'] === 'en').name;
-        const pokemon_entries = pokedex['pokemon_entries'].map((pokemon: any) => {
-          const entry_number = pokemon['entry_number'];
-          const name = pokemon['pokemon_species']['name'];
-          const id = pokemon['pokemon_species']['url'].split('/').reverse()[1];
-          const image = `${this.sprite}${id}.png`;
-          return { name, id, image, entry_number };
-        });
+        const description = pokedex['descriptions'];
+        const name = pokedex['names'];
+        const pokemon_entries = pokedex['pokemon_entries'];
         return { description, name, pokemon_entries };
       })
     );

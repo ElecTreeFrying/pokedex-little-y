@@ -3,9 +3,6 @@
     "id": "org.nativescript.pokedexlittle",
     "tns-ios": {
       "version": "6.5.0"
-    },
-    "tns-android": {
-      "version": "6.5.0"
     }
   },
   "description": "Angular + NativeScript demo application featuring PokéAPI.",

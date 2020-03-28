@@ -172,20 +172,20 @@ export class PokeApiService {
 
   versionGroupPretty(group: string) {
     return group.replace('red-blue', 'red-and-blue')
-    .replace('gold-silver', 'gold-and-silver')
-    .replace('ruby-sapphire', 'ruby-and-sapphire')
-    .replace('firered-leafgreen', 'fire-red-and-leafy-green')
-    .replace('diamond-pearl', 'diamond-and-pearl')
-    .replace('heartgold-soulsilver', 'heart-gold-and-soul-silver')
-    .replace('black-white', 'black-and-white')
-    .replace('black-2-white-2', 'black-2-and-white-2')
-    .replace('x-y', 'x-and-y')
-    .replace('omega-ruby-alpha-sapphire', 'omega-ruby-and-alpha-sapphire')
-    .replace('sun-moon', 'sun-and-moon')
-    .replace('ultra-sun-ultra-moon', 'ultra-sun-and-ultra-moon')
-    .split('-')
-    .map((a: string) => a[0].toUpperCase() + a.slice(1))
-    .join(' ').replace('And', 'and') + ' Version';
+      .replace('gold-silver', 'gold-and-silver')
+      .replace('ruby-sapphire', 'ruby-and-sapphire')
+      .replace('firered-leafgreen', 'fire-red-and-leafy-green')
+      .replace('diamond-pearl', 'diamond-and-pearl')
+      .replace('heartgold-soulsilver', 'heart-gold-and-soul-silver')
+      .replace('black-white', 'black-and-white')
+      .replace('black-2-white-2', 'black-2-and-white-2')
+      .replace('x-y', 'x-and-y')
+      .replace('omega-ruby-alpha-sapphire', 'omega-ruby-and-alpha-sapphire')
+      .replace('sun-moon', 'sun-and-moon')
+      .replace('ultra-sun-ultra-moon', 'ultra-sun-and-ultra-moon')
+      .split('-')
+      .map((a: string) => a[0].toUpperCase() + a.slice(1))
+      .join(' ').replace('And', 'and') + ' Version';
   }
   
 }

@@ -9,8 +9,6 @@ import { PokeApiService } from "../services/poke-api.service";
   providedIn: 'root'
 })
 export class TypeDataResolve implements Resolve<any> {
-  
-  sprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
   constructor(
     private http: HttpClient,
@@ -22,15 +20,9 @@ export class TypeDataResolve implements Resolve<any> {
     const id = this.api.id;
     return this.http.get(`https://pokeapi.co/api/v2/type/${id}`).pipe(
       map((type: any) => {
-        const name = type['names'].find(e => e['language']['name'] === 'en').name;
+        const name = type['names'];
         const damage_relations = type['damage_relations'];
-        const pokemon = type['pokemon'].map((monster: any) => {
-          let name = monster['pokemon']['name'];
-          name = name[0].toUpperCase() + name.slice(1);
-          const entry_number = +monster['pokemon']['url'].split('/').reverse()[1];
-          const image = `${this.sprite}${entry_number}.png`;
-          return { name, entry_number, image, id: entry_number }
-        });
+        const pokemon = type['pokemon'];
         return { name, pokemon, damage_relations };
       })
     );
