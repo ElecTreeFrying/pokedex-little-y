@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ScrollEventData } from 'tns-core-modules/ui/scroll-view';
-import { AnimationCurve } from 'tns-core-modules/ui/enums';
+
 
 import { PokeApiService } from "../../_common/services/poke-api.service";
 import { BerryObjectService } from "../../_common/services/berry-object.service";
@@ -34,17 +34,6 @@ export class BerryDataComponent implements OnInit {
   
   onScroll(event: ScrollEventData) {
     this.isScrolled = event.scrollY === 0 ? false : true;
-  }
-  
-  back() {
-    this.router.navigate(['berries'], {
-      animated: true,
-      transition: {
-        name: 'slideRight',
-        curve: AnimationCurve.cubicBezier(1,0,.5,1),
-        duration: 500
-      }
-    });
   }
 
 }

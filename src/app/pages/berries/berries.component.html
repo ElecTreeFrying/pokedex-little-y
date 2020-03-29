@@ -5,12 +5,12 @@
   
 </ActionBar>
 
-<ScrollView>
+<ScrollView (scroll)="onScroll()">
   <GridLayout class="container" row="0" col="0" rows="85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85" columns="*,*">
     <MDRipple 
       rippleColor="#FFFFFF"
       class="nav"
-      *ngFor="let item of (berries | async); index as i; even as isEven" 
+      *ngFor="let item of berries; index as i; even as isEven" 
       [ngStyle]="{ 'margin': isEven ? '0 7.5 0 25' : '0 25 0 7.5' }"
       [row]="isEven ? (i | evenPipe) : (i | oddPipe)" 
       [col]="isEven ? 0 : 1"

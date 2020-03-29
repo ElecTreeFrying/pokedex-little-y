@@ -1,11 +1,11 @@
 
 <ActionBar class="action-bar" [title]="generation?.name + ' - Pokémon'">
   
-  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="back()"></NavigationButton>
+  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
   
 </ActionBar>
 
-<ScrollView>
+<ScrollView (scroll)="onScroll($event)">
   <GridLayout class="container" rows="*" columns="*">
 
     <FlexboxLayout row="0" col="0" flexDirection="column">

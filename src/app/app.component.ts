@@ -13,6 +13,7 @@ import { AnimationCurve } from 'tns-core-modules/ui/enums';
 })
 export class AppComponent implements OnInit, AfterViewInit { 
 
+  item: any;
   nav = [ 'Home', 'Pokédex', 'Pokémon', 'Generation', 'Berries' ];
 
   @ViewChild(RadSideDrawerComponent, { static: false }) 
@@ -41,12 +42,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     }), 1000;
   }
 
-  navigate(item: string = "") {
-    const route = item.replace('é', 'e').toLowerCase();
-
-    this.drawer.closeDrawer();
-
-    this.router.navigate([ '/', route], {
+  onDrawerClosed() {
+    this.router.navigate([this.item], {
       animated: true,
       transition: {
         name: 'slide',
@@ -54,6 +51,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         duration: 500
       }
     });
+  }
+
+  navigate(item: string = "") {
+    this.item = item.replace('é', 'e').toLowerCase();
+    this.drawer.closeDrawer();
   }
 
 }

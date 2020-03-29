@@ -3,7 +3,7 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { EventData } from 'tns-core-modules/data/observable';
 import { ActionBar } from 'tns-core-modules/ui/action-bar';
-import { AnimationCurve } from 'tns-core-modules/ui/enums';
+import { ScrollView, ScrollEventData } from 'tns-core-modules/ui/scroll-view/scroll-view';
 import { alert } from 'tns-core-modules/ui/dialogs';
 
 import { DexObjectService } from "../../_common/services/dex-object.service";
@@ -15,6 +15,7 @@ import { DexObjectService } from "../../_common/services/dex-object.service";
 })
 export class PokedexDataComponent implements OnInit {
 
+  all: any;
   pokemon: any;
   isShowActionItem: boolean;
 
@@ -28,7 +29,8 @@ export class PokedexDataComponent implements OnInit {
     this.pokemon = this.route.snapshot.data['resolve'];
     this.pokemon['description'] = this.object.description(this.pokemon['description']);
     this.pokemon['name'] = this.object.names(this.pokemon['name']);
-    this.pokemon['pokemon_entries'] = this.object.pokemonSpecies(this.pokemon['pokemon_entries']);
+    this.all = this.object.pokemonSpecies(this.pokemon['pokemon_entries']);
+    this.pokemon['pokemon_entries'] = this.all.slice(0, 15);
     this.isShowActionItem = this.pokemon.description.length > 0;
   }
 
@@ -46,15 +48,21 @@ export class PokedexDataComponent implements OnInit {
     );
   }
 
-  back() {
-    this.router.navigate(['pokedex'], {
-      animated: true,
-      transition: {
-        name: 'slideRight',
-        curve: AnimationCurve.cubicBezier(1,0,.5,1),
-        duration: 500
-      }
-    });
+  oldIndex = 15;
+  newIndex = 0;
+
+  onScroll(event: ScrollEventData) {
+    const scroll = <ScrollView>event.object;
+    const refY = event.scrollY;
+    const maxY = scroll.scrollableHeight;
+
+    this.newIndex = this.oldIndex + 30;
+
+    if (maxY === refY) {
+      const newEntries = this.all.slice(this.oldIndex, this.newIndex);
+      this.pokemon['pokemon_entries'] = this.pokemon['pokemon_entries'].concat(newEntries);
+      this.oldIndex = this.newIndex;
+    }
   }
 
   moreDetails(description: string) {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { AnimationCurve } from 'tns-core-modules/ui/enums';
+import { ScrollView, ScrollEventData } from 'tns-core-modules/ui/scroll-view/scroll-view';
 
 import { GenObjectService } from "../../_common/services/gen-object.service";
 
@@ -11,7 +11,8 @@ import { GenObjectService } from "../../_common/services/gen-object.service";
   styleUrls: ['./generation-data.component.scss']
 })
 export class GenerationDataComponent implements OnInit {
-
+  
+  all: any;
   generation: any;
 
   constructor(
@@ -23,22 +24,29 @@ export class GenerationDataComponent implements OnInit {
   ngOnInit(): void {
     this.generation = this.route.snapshot.data['resolve'];
     this.generation['name'] = this.object.name(this.generation['name']);
-    this.generation['pokemon_species'] = this.object.pokemonSpecies(this.generation['pokemon_species']);
+    this.all = this.object.pokemonSpecies(this.generation['pokemon_species']);
+    this.generation['pokemon_species'] = this.all.slice(0, 15);
   }
 
   toPokemon(pokemon: any) {
     console.log('pokemon selected →', pokemon);
   }
 
-  back() {
-    this.router.navigate(['generation'], {
-      animated: true,
-      transition: {
-        name: 'slideRight',
-        curve: AnimationCurve.cubicBezier(1,0,.5,1),
-        duration: 500
-      }
-    });
+  oldIndex = 15;
+  newIndex = 0;
+
+  onScroll(event: ScrollEventData) {
+    const scroll = <ScrollView>event.object;
+    const refY = event.scrollY;
+    const maxY = scroll.scrollableHeight;
+
+    this.newIndex = this.oldIndex + 30;
+
+    if (maxY === refY) {
+      const newEntries = this.all.slice(this.oldIndex, this.newIndex);
+      this.generation['pokemon_species'] = this.generation['pokemon_species'].concat(newEntries);
+      this.oldIndex = this.newIndex;
+    }
   }
 
 }

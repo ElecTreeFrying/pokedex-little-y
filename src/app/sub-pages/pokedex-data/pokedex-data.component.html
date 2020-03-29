@@ -1,7 +1,7 @@
 
 <ActionBar class="action-bar" [title]="pokemon?.name + ' Pokédex'" (loaded)="onActionBarLoaded($event)">
   
-  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="back()"></NavigationButton>
+  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
   
   <ActionItem 
     *ngIf="isShowActionItem"
@@ -11,14 +11,14 @@
 
 </ActionBar>
   
-<ScrollView>
+<ScrollView (scroll)="onScroll($event)">
   <GridLayout class="container" rows="*" columns="*">
 
     <FlexboxLayout row="0" col="0" flexDirection="column">
       <MDRipple 
         rippleColor="#FFFFFF"
         class="nav"
-        *ngFor="let item of pokemon.pokemon_entries; first as isFirst; last as isLast"
+        *ngFor="let item of pokemon?.pokemon_entries; first as isFirst; last as isLast"
         [ngStyle]="{ 'margin': isFirst ? '20 20 4 20' : isLast ? '4 20 20 20' : '4 20 4 20' }"
         (tap)="toPokemon(item)">
         <FlexboxLayout flexDirection="row">

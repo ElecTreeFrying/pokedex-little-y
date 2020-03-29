@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import * as app from "tns-core-modules/application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { ActivatedRoute } from '@angular/router';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { ScrollEventData, ScrollView } from "tns-core-modules/ui/scroll-view/scroll-view";
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
 
 import { PokeApiService } from "../../_common/services/poke-api.service";
@@ -13,15 +15,18 @@ import { PokeApiService } from "../../_common/services/poke-api.service";
 })
 export class HomeComponent implements OnInit {
 
+  all: any;
   pokemon: any;
 
   constructor(
     private router: RouterExtensions, 
+    private route: ActivatedRoute, 
     private api: PokeApiService
   ) { }
 
   ngOnInit() {
-    this.pokemon = this.api.homeData;
+    this.all = this.route.snapshot.data['resolve'];
+    this.pokemon = this.all.slice(0, 15);
   }
 
   toPokemon(pokemon: any) {
@@ -35,6 +40,23 @@ export class HomeComponent implements OnInit {
         duration: 500
       }
     });
+  }
+
+  oldIndex = 15;
+  newIndex = 0;
+
+  onScroll(event: ScrollEventData) {
+    const scroll = <ScrollView>event.object;
+    const refY = event.scrollY;
+    const maxY = scroll.scrollableHeight;
+
+    this.newIndex = this.oldIndex + 30;
+
+    if (maxY === refY) {
+      const newEntries = this.all.slice(this.oldIndex, this.newIndex);
+      this.pokemon = this.pokemon.concat(newEntries);
+      this.oldIndex = this.newIndex;
+    }
   }
   
   onShow() {

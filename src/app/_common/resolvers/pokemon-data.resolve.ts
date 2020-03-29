@@ -22,6 +22,7 @@ export class PokemonDataResolve implements Resolve<any> {
       map((pokemon: any) => {
         
         pokemon['height'] = `${+pokemon['height'] * 10} cm`;
+        pokemon['weight'] = `${+pokemon['weight'] * 100} g`;
 
         pokemon['stats'] = pokemon['stats'].map((stat) => {
           stat['stat'] = stat['stat']['name'];

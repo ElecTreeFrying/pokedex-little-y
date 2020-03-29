@@ -1,5 +1,5 @@
 
-<RadSideDrawer [drawerTransition]="transition" class="ns-dar">
+<RadSideDrawer [drawerTransition]="transition" (drawerClosed)="onDrawerClosed()" class="ns-dar">
 
   <GridLayout tkDrawerContent class="radside-container" rows="24,auto,*,auto" columns="*">
 
