@@ -21,7 +21,7 @@ export class DexObjectService {
     return _species.map((pokemon: any) => {
       const entry_number = pokemon['entry_number'];
       const name = pokemon['pokemon_species']['name'];
-      const id = pokemon['pokemon_species']['url'].split('/').reverse()[1];
+      const id = +pokemon['pokemon_species']['url'].split('/').reverse()[1];
       const image = `${this.sprite}${id}.png`;
       return { name, id, image, entry_number };
     });

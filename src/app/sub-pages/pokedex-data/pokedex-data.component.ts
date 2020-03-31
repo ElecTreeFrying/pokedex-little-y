@@ -4,9 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { EventData } from 'tns-core-modules/data/observable';
 import { ActionBar } from 'tns-core-modules/ui/action-bar';
 import { ScrollView, ScrollEventData } from 'tns-core-modules/ui/scroll-view/scroll-view';
+import { AnimationCurve } from 'tns-core-modules/ui/enums/enums';
 import { alert } from 'tns-core-modules/ui/dialogs';
 
+import { PokeApiService } from "../../_common/services/poke-api.service";
 import { DexObjectService } from "../../_common/services/dex-object.service";
+
 
 @Component({
   selector: 'ns-pokedex-data',
@@ -18,10 +21,12 @@ export class PokedexDataComponent implements OnInit {
   all: any;
   pokemon: any;
   isShowActionItem: boolean;
+  isLoading: boolean;
 
   constructor(
     public router: RouterExtensions,
     private route: ActivatedRoute,
+    private api: PokeApiService,
     private object: DexObjectService
   ) { }
 
@@ -35,7 +40,15 @@ export class PokedexDataComponent implements OnInit {
   }
 
   toPokemon(pokemon: any) {
-    console.log('pokemon selected →', pokemon);
+    this.api.id = pokemon['id'];
+    this.router.navigate(['pokemon-data'], {
+      animated: true,
+      transition: {
+        name: 'slide',
+        curve: AnimationCurve.cubicBezier(1,0,.5,1),
+        duration: 500
+      }
+    });
   }
 
   onActionBarLoaded(event: EventData) {
@@ -62,6 +75,13 @@ export class PokedexDataComponent implements OnInit {
       const newEntries = this.all.slice(this.oldIndex, this.newIndex);
       this.pokemon['pokemon_entries'] = this.pokemon['pokemon_entries'].concat(newEntries);
       this.oldIndex = this.newIndex;
+      this.isLoading = true;
+    } else {
+      this.isLoading = false;
+    }
+
+    if (maxY === refY && this.all.length === this.pokemon['pokemon_entries'].length) {
+      this.isLoading = false;
     }
   }
 

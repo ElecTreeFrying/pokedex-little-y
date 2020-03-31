@@ -23,6 +23,11 @@ This is where the vast majority of your SCSS code goes. */
   font-family: "IcoMoon-Free";
 }
 
+.my-action-bar {
+  background-color: #530034;
+  color: white;
+}
+
 .action-bar {
   background-color: #530034;
   color: white;
@@ -36,4 +41,13 @@ This is where the vast majority of your SCSS code goes. */
 .container {
   background-color: #340522;
   color: white;
+}
+
+.indicator {
+  padding-bottom: 20;
+  
+  .activity-indicator {
+    background-color: yellow;
+    padding-bottom: 20;
+  }
 }

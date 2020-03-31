@@ -24,13 +24,14 @@ export const color = {
   }
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class PokeApiService {
 
   private _id: number;
-  private _route: string;
+  private _name: string;
 
   private pokemonSpriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
@@ -39,8 +40,8 @@ export class PokeApiService {
   set id(id: number) { this._id = id; }
   get id() { return this._id; }
 
-  set lastRoute(route: string) { this._route = route; }
-  get lastRoute() { return this._route; }
+  set name(name: string) { this._name = name; }
+  get name() { return this._name; }
 
   counter: number = 0;
   increase() { return this.counter++; }
@@ -55,7 +56,7 @@ export class PokeApiService {
           const id = pokemon['entry_number']
           pokemon['entry_number'] = +pokemon['entry_number']
           pokemon['name'] = pokemon['pokemon_species']['name'];
-          pokemon['id'] = pokemon['pokemon_species']['url'].split('/').reverse()[1];
+          pokemon['id'] = +pokemon['pokemon_species']['url'].split('/').reverse()[1];
           pokemon['image'] = this.pokemonSpriteURL + id + '.png';
           delete pokemon['pokemon_species'];
           return pokemon;

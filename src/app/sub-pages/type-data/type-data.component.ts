@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ScrollView, ScrollEventData } from 'tns-core-modules/ui/scroll-view/scroll-view';
+import { AnimationCurve } from 'tns-core-modules/ui/enums/enums';
 
+import { PokeApiService } from "../../_common/services/poke-api.service";
 import { TypeObjectService } from "../../_common/services/type-object.service";
+
 
 @Component({
   selector: 'ns-type-data',
@@ -14,10 +17,12 @@ export class TypeDataComponent implements OnInit {
   
   all: any;
   types: any;
+  isLoading: boolean;
 
   constructor(
     public router: RouterExtensions,
     private route: ActivatedRoute,
+    private api: PokeApiService,
     private object: TypeObjectService
   ) { }
 
@@ -29,7 +34,15 @@ export class TypeDataComponent implements OnInit {
   }
 
   toPokemon(pokemon: any) {
-    console.log('pokemon selected →', pokemon);
+    this.api.id = pokemon['id'];
+    this.router.navigate(['pokemon-data'], {
+      animated: true,
+      transition: {
+        name: 'slide',
+        curve: AnimationCurve.cubicBezier(1,0,.5,1),
+        duration: 500
+      }
+    });
   }
 
   oldIndex = 15;
@@ -46,6 +59,13 @@ export class TypeDataComponent implements OnInit {
       const newEntries = this.all.slice(this.oldIndex, this.newIndex);
       this.types['pokemon'] = this.types['pokemon'].concat(newEntries);
       this.oldIndex = this.newIndex;
+      this.isLoading = true;
+    } else {
+      this.isLoading = false;
+    }
+
+    if (maxY === refY && this.all.length === this.types['pokemon'].length) {
+      this.isLoading = false;
     }
   }
 

@@ -6,7 +6,7 @@
 </ActionBar>
 
 <ScrollView (scroll)="onScroll($event)">
-  <GridLayout class="container" rows="*" columns="*">
+  <GridLayout class="container" rows="*,auto" columns="*">
 
     <FlexboxLayout row="0" col="0" flexDirection="column">
       <MDRipple 
@@ -38,6 +38,10 @@
           </Image>
         </FlexboxLayout>
       </MDRipple>
+    </FlexboxLayout>
+
+    <FlexboxLayout class="indicator" row="1", col="0" justifyContent="center" *ngIf="isLoading">
+      <ActivityIndicator busy="true" width="50" height="50"></ActivityIndicator>
     </FlexboxLayout>
 
   </GridLayout>

@@ -1,14 +1,325 @@
 
-<ActionBar class="action-bar" [title]="'Pokémon'">
+<ActionBar class="action-bar" [title]="'Pokémon'" (tap)="showBorder()">
   
   <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
   
 </ActionBar>
 
-<ScrollView>
-  <GridLayout class="container" rows="*" columns="*">
+<GridLayout class="container" rows="auto,auto,*" columns="*" (tap)="showBorder()"> 
 
-    <Button row="0" col="0" text="pokemon-data works!" class="btn btn-primary"></Button>
+  <FlexboxLayout
+    class="head layout" 
+    row="0" col="0">
+    <Label
+      class="text" text="Pokemon details"></Label>
+  </FlexboxLayout>
+
+  <GridLayout [ngClass]="{ 'bo': isBorder }"
+    row="1" col="0"
+    rows="*" columns="*"
+    class="content layout"
+    flexDirection="column">
+    
+    <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+      row="0" col="0"
+      class="preview">
+      
+      <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+        class="image">
+        
+        <Image [ngClass]="{ 'bo': isBorder }"
+          class="item"
+          width="150"
+          height="150"
+          decodeHeight="150"
+          decodeWidth="150"
+          loadMode="async"
+          [src]="pokemon?.sprites?.front_default">
+        </Image>
+
+        <FlexboxLayout
+          class="number"
+          flexWrap="wrap"
+          flexDirection="column">
+
+          <Label [ngClass]="{ 'bo': isBorder }"
+            class="index" 
+            [text]="'No. ' + pokemon?.id"
+            ></Label>
+          <Label [ngClass]="{ 'bo': isBorder }"
+            class="name"
+            [text]="pokemon?.name"
+            textTransform="capitalize"></Label>
+          <Label [ngClass]="{ 'bo': isBorder }"
+            class="genera"
+            [text]="(pokemon?.species | async)?.genera"
+            textTransform="capitalize"></Label>
+
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="types">
+            <Label [ngClass]="{ 'bo': isBorder }"
+              class="type"
+              *ngFor="let item of (pokemon?.types | sortIndex)"
+              [ngStyle]="{ 'background-color': item.type | typeColor }"
+              [text]="item.type"
+              textAlignment="center"></Label>  
+          </FlexboxLayout>
+          
+        </FlexboxLayout>
+
+      </FlexboxLayout>
+
+    </FlexboxLayout>
 
   </GridLayout>
-</ScrollView>
+
+  <ScrollView row="2" col="0" (tap)="showBorder()">
+
+    <GridLayout [ngClass]="{ 'bo': isBorder }" (tap)="showBorder()"
+      rows="*" columns="*" class="container layout">
+
+      <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+        row="0" col="0"
+        class="details"
+        flexDirection="column">
+
+        <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+          class="spec"
+          justifyContent="space-between"
+          flexWrap="wrap">
+          
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="habitat box"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Habitat"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label [text]="(pokemon?.species | async)?.habitat"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+          
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="capture-rate box"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Capture rate"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label [text]="(pokemon?.species | async)?.capture_rate"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+          
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="color box"
+            flexWrapBefore="true"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Color"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label [text]="(pokemon?.species | async)?.color"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+          
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="shape box"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Shape"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label [text]="(pokemon?.species | async)?.shape"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+          
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="base_happiness box"
+            flexWrapBefore="true"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Base happiness"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label [text]="(pokemon?.species | async)?.base_happiness"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="growth_rate box"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Growth rate"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label [text]="((pokemon?.species | async)?.growth_rate | async)?.description"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="hatch_counter box"
+            flexWrapBefore="true"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Hatch counter"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label [text]="(pokemon?.species | async)?.hatch_counter"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+
+          <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+            class="egg_groups box"
+            flexDirection="column">
+            <FlexboxLayout 
+              class="key"
+              justifyContent="center">
+              <Label text="Egg groups"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+              class="value"
+              justifyContent="center">
+              <Label *ngFor="let egg_group of (pokemon?.species | async)?.egg_groups; last as isLast" [text]="egg_group + (!isLast ? ', ' : '')"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+
+        </FlexboxLayout>
+
+        <FlexboxLayout
+          class="evolution"
+          flexWrapBefore="true"
+          flexDirection="column">
+          
+          <FlexboxLayout class="key">
+            <Label text="Evolution"></Label>
+          </FlexboxLayout>
+          
+          <FlexboxLayout 
+            class="value"
+            justifyContent="center">
+
+            <FlexboxLayout class="content">
+          
+              <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+                class="first"
+                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.first"
+                justifyContent="center"
+                flexDirection="column">
+                
+                <Image [ngClass]="{ 'bo': isBorder }"
+                  decodeHeight="70"
+                  decodeWidth="70"
+                  height="70"
+                  width="70"
+                  loadMode="async"
+                  [src]="((pokemon?.species | async)?.evolution_chain | async)?.first?.sprite">
+                </Image>
+    
+                <Label [ngClass]="{ 'bo': isBorder }" 
+                  [text]="((pokemon?.species | async)?.evolution_chain | async)?.first?.name"
+                  textTransform="capitalize"></Label>
+
+              </FlexboxLayout>
+              
+              <FlexboxLayout [ngClass]="{ 'bo': isBorder }" 
+                class="arrow"
+                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.second">
+                <Label [ngClass]="{ 'bo': isBorder }" 
+                  class="fas fa-long-arrow-alt-right"
+                  text="&#xf30b;" 
+                  alignSelf="center"></Label>
+              </FlexboxLayout>
+    
+              <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+                class="second"
+                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.second"
+                justifyContent="center"
+                flexDirection="column">
+                
+                <Image [ngClass]="{ 'bo': isBorder }"
+                  decodeHeight="70"
+                  decodeWidth="70"
+                  height="70"
+                  width="70"
+                  loadMode="async"
+                  [src]="((pokemon?.species | async)?.evolution_chain | async)?.second?.sprite">
+                </Image>
+    
+                <Label [ngClass]="{ 'bo': isBorder }" 
+                  [text]="((pokemon?.species | async)?.evolution_chain | async)?.second?.name"
+                  textTransform="capitalize"></Label>
+    
+              </FlexboxLayout>
+              
+              <FlexboxLayout [ngClass]="{ 'bo': isBorder }" 
+                class="arrow"
+                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.third">
+                <Label [ngClass]="{ 'bo': isBorder }" 
+                  class="fas fa-long-arrow-alt-right"
+                  text="&#xf30b;" 
+                  alignSelf="center"></Label>
+              </FlexboxLayout>
+    
+              <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+                class="third"
+                alignContent="center"
+                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.third"
+                flexDirection="column">
+                
+                <Image [ngClass]="{ 'bo': isBorder }"
+                  decodeHeight="70"
+                  decodeWidth="70"
+                  height="70"
+                  width="70"
+                  loadMode="async"
+                  [src]="((pokemon?.species | async)?.evolution_chain | async)?.third?.sprite">
+                </Image>
+    
+                <Label [ngClass]="{ 'bo': isBorder }" 
+                  [text]="((pokemon?.species | async)?.evolution_chain | async)?.third?.name"
+                  textTransform="capitalize"
+                  textAlignment="center"></Label>
+
+              </FlexboxLayout>
+    
+            </FlexboxLayout>
+
+          </FlexboxLayout>
+
+        </FlexboxLayout>
+
+      </FlexboxLayout>
+
+    </GridLayout>
+
+  </ScrollView>
+
+</GridLayout>

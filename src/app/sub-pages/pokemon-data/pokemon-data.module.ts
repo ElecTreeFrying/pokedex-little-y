@@ -1,12 +1,19 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NativeScriptCommonModule } from 'nativescript-angular/common';
 
 import { PokemonDataRoutingModule } from './pokemon-data-routing.module';
-import { NativeScriptCommonModule } from 'nativescript-angular/common';
+
 import { PokemonDataComponent } from './pokemon-data.component';
+import { SortIndexPipe } from "../../_common/pipes/sort-index.pipe";
+import { TypeColorPipe } from "../../_common/pipes/type-color.pipe";
 
 
 @NgModule({
-  declarations: [PokemonDataComponent],
+  declarations: [
+    PokemonDataComponent,
+    SortIndexPipe,
+    TypeColorPipe
+  ],
   imports: [
     PokemonDataRoutingModule,
     NativeScriptCommonModule

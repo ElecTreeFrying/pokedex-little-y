@@ -1,1 +1,111 @@
-/* Add mobile styles for the component here.  */
+
+// components
+
+.action-bar {
+  background-color: #340522;
+}
+
+// global
+
+.fa-long-arrow-alt-right { color: black; }
+
+.key { 
+  padding: 0 10 5 10;
+  background-color: violet; 
+}
+
+.value {
+  padding: 0 10 5 10;
+  border-width: 1;
+  border-top-width: 0;
+  border-color: violet;
+}
+
+.layout {
+  color: black;
+  background-color: white;
+  font-size: 19;
+  font-family: 'VT323', 'VT323-Regular';
+}
+
+// styles
+
+.head {
+  border-top-right-radius: 25;
+  border-top-left-radius: 25;
+  padding: 20;
+  height: auto;
+  
+  .text {
+    color: #858585;
+    font-size: 16;
+    font-family: 'Roboto', 'Roboto-Medium';
+  }
+}
+
+.preview {
+  width: 330;
+
+  .image .number {
+    width: 160;
+  }
+  
+  .image .number .index {
+    font-size: 23;
+    Label { letter-spacing: 0.15; }
+  }
+  
+  .image .number .name {
+    font-size: 30;
+    margin-top: -10;
+    Label { letter-spacing: 0.15; }
+  }
+
+  .image .number .genera {
+    // font-size: 30;
+    margin-top: -10;
+    Label { letter-spacing: 0.15; }
+  }
+
+  .image .number .types {
+    margin-top: 10;
+
+    .type {
+      border-radius: 50%;
+      padding: 0 10 5 10;
+      margin-right: 10;
+    }
+  }
+  
+  .image .number .abilities .ability {
+    padding: 0 10 0 0;
+  }
+}
+
+.details {
+  width: 330;
+
+  .evolution {
+    margin-bottom: 20;
+
+    .arrow {
+      margin: 0 10
+    }
+  }
+
+  .spec {
+    margin-bottom: 10;
+
+    .box {
+      width: 160;
+      margin-bottom: 10;
+    }
+  }
+}
+
+// development
+
+.bo {
+  border-width: 1;
+  border-color: red;
+}

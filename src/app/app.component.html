@@ -1,5 +1,5 @@
 
-<RadSideDrawer [drawerTransition]="transition" (drawerClosed)="onDrawerClosed()" class="ns-dar">
+<RadSideDrawer [drawerTransition]="transition" allowEdgeSwipe="true" (drawerClosed)="onDrawerClosed()">
 
   <GridLayout tkDrawerContent class="radside-container" rows="24,auto,*,auto" columns="*">
 
@@ -25,6 +25,6 @@
 
   </GridLayout>
 
-  <page-router-outlet tkMainContent class="ns-dar"></page-router-outlet>
+  <page-router-outlet tkMainContent></page-router-outlet>
   
 </RadSideDrawer>

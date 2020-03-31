@@ -3,13 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
 import * as _ from 'lodash';
 
+import { PokeApiService } from "./poke-api.service";
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class PokeObjectService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private api: PokeApiService
   ) { }
 
   abilities(_abilities: any) {
@@ -18,8 +22,7 @@ export class PokeObjectService {
       ability['ability']['data'] = this.http.get(ability['ability']['url']).pipe(
         map((ability) => {
           
-          const effect_entry = ability['effect_entries'].filter(e => e.language.name === 'en')[0];
-          delete effect_entry['language'];
+          const effect_entry = ability['effect_entries'].filter(e => e.language.name === 'en')[0].effect;
           
           let flavor_text_entry = ability['flavor_text_entries'].filter(e => e.language.name === 'en')
             .filter(e => e.language.name === 'en')
@@ -78,7 +81,7 @@ export class PokeObjectService {
           // damage class
           const damage_class = this.http.get(res['damage_class']['url']).pipe(
             map((damage) => {
-              const description = damage['descriptions'].filter(e => e.language.name === 'en')[0];
+              const description = damage['descriptions'].filter(e => e.language.name === 'en')[0].description;
               const name = damage['name'];
               return { description, name };
             })
@@ -86,6 +89,7 @@ export class PokeObjectService {
 
           // effect entry
           const effect_entry = res['effect_entries'].filter(e => e.language.name === 'en')[0];
+          delete effect_entry['language'];
 
           // flavor entry
           let flavor_text_entry = res['flavor_text_entries']
@@ -138,11 +142,7 @@ export class PokeObjectService {
           let super_contest_effect = null;
           if (res['super_contest_effect']) {
             super_contest_effect = this.http.get(res['super_contest_effect']['url']).pipe(
-              map((contest) => {
-                let flavor_text_entry = contest['flavor_text_entries'].filter(e => e.language.name === 'en')[0];
-                delete flavor_text_entry['language'];
-                return { flavor_text_entry };
-              })
+              map((contest) => contest['flavor_text_entries'].filter(e => e.language.name === 'en')[0].flavor_text)
             );
           }
 
@@ -173,9 +173,10 @@ export class PokeObjectService {
             const name = learnMethod['name'];
             return { name, description }
           })
-        )
+        );
 
-        delete version['version_group']
+        version['version_group'] = version['version_group']['name'];
+
         delete version['move_learn_method']['url'];
 
         return version;
@@ -189,61 +190,82 @@ export class PokeObjectService {
     return  this.http.get(_species['url']).pipe(
       map((specie) => {
         
+        const fixed0 = (+specie['base_happiness'] / 255).toFixed(2);
+
+        specie['base_happiness'] = `${ fixed0.includes('.00') ? `${fixed0.replace('.00', '')}` : fixed0 }%`;
+
+        const fixed1 = (+specie['capture_rate'] / 255).toFixed(2);
+
+        specie['capture_rate'] = `${ fixed1.includes('.00') ? `${fixed1.replace('.00', '')}` : fixed1 }%`;
+
         specie['color'] = specie['color']['name'];
 
-        specie['egg_groups'] = specie['egg_groups'].map((group) => {
-          delete group['url'];
-          return group;
-        })
+        specie['egg_groups'] = specie['egg_groups'].map(e => e.name);
 
         specie['evolution_chain'] = this.http.get(specie['evolution_chain']['url']).pipe(
           map((chain) => {
 
             let first = null;
             if (chain['chain']['evolves_to'].length > 0) {
+              const id = +chain['chain']['species']['url'].split('/').reverse()[1];
               first = {
                 name: chain['chain']['species']['name'],
                 evolution: chain['chain']['evolves_to'][0]['species']['name'],
                 pokemon: chain['chain']['evolves_to'][0],
-                entry_number: +chain['chain']['species']['url'].split('/').reverse()[1]
+                entry_number: '#' + id,
+                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
               }
             } else {
+              const id = +chain['chain']['species']['url'].split('/').reverse()[1];
               first = {
                 name: chain['chain']['species']['name'],
                 evolution: null, pokemon: null,
-                entry_number: +chain['chain']['species']['url'].split('/').reverse()[1]
+                entry_number: '#' + id,
+                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
               }
+
+              return { first, second: null, third: null };
             }
             
             let second = null;
             if (first['pokemon']['evolves_to'].length > 0) {
+              const id = +first['pokemon']['species']['url'].split('/').reverse()[1];
               second = {
                 name: first['pokemon']['species']['name'],
                 evolution: first['pokemon']['evolves_to'][0]['species']['name'],
                 pokemon: first['pokemon']['evolves_to'][0],
-                entry_number: +first['pokemon']['species']['url'].split('/').reverse()[1]
+                entry_number: '#' + id,
+                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
               }
             } else {
+              const id = +first['pokemon']['species']['url'].split('/').reverse()[1];
               second = {
                 name: first['pokemon']['species']['name'],
                 evolution: null, pokemon: null,
-                entry_number: +first['pokemon']['species']['url'].split('/').reverse()[1]
+                entry_number: '#' + id,
+                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
               }
+
+              return { first, second, third: null };
             }
             
             let third = null;
             if (second['pokemon']['evolves_to'].length > 0) {
+              const id = +second['pokemon']['species']['url'].split('/').reverse()[1];
               third = {
                 name: second['pokemon']['species']['name'],
                 evolution: second['pokemon']['evolves_to'][0]['species']['name'],
                 pokemon: second['pokemon']['evolves_to'][0],
-                entry_number: +second['pokemon']['species']['url'].split('/').reverse()[1]
+                entry_number: '#' + id,
+                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
               }
             } else {
+              const id = +second['pokemon']['species']['url'].split('/').reverse()[1];
               third = {
                 name: second['pokemon']['species']['name'],
                 evolution: null, pokemon: null,
-                entry_number: +second['pokemon']['species']['url'].split('/').reverse()[1]
+                entry_number: '#' + id,
+                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
               }
             }
 
@@ -264,10 +286,14 @@ export class PokeObjectService {
             entry['version_group'] = entry['version']['name'];
             entry['version'] = 'Pokémon ' + this.versionGroupPretty(entry['version']['name']);
             
-            delete entry['language'];
             return entry;
           });
       
+
+        specie['flavor_text_entries_display'] = specie['flavor_text_entries']
+          .filter(e => e['version_group'] === 'alpha-sapphire')
+          .map(e => e['flavor_text'])[0];
+
         specie['flavor_text_entries'] = _.sortBy(specie['flavor_text_entries'], [ 'id' ])
 
         specie['genera'] = specie['genera'].filter(e => e.language.name === 'en')[0].genus;
@@ -276,9 +302,17 @@ export class PokeObjectService {
           map((growth) => {
             
             growth['description'] = growth['descriptions'].filter(e => e.language.name === 'en')[0].description;
+            
+            growth['levels'] = growth['levels'].map((level) => {
+              
+              level['experience'] = `${level['experience']} exp`;
+
+              return level
+            })
 
             delete growth['descriptions'];
             delete growth['formula'];
+            delete growth['gender_rate'];
             delete growth['id'];
             delete growth['pokemon_species'];
             
@@ -288,6 +322,8 @@ export class PokeObjectService {
         
         specie['habitat'] = specie['habitat']['name'];
 
+        specie['hatch_counter'] = `${(specie['hatch_counter'] + 1) * 255} steps`;
+        
         specie['pokedex_numbers'] = specie['pokedex_numbers'].map((pokedex) => {
           const name = pokedex['pokedex']['name'].split('-').join(' ');
           pokedex['pokedex'] = name.split(' ').map((a: string) => 
@@ -311,6 +347,20 @@ export class PokeObjectService {
         delete specie['varieties'];
 
         return specie;
+      })
+    );
+  }
+
+  sprite(pokemon: any) {
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${this.api.name}`).pipe(
+      map((res) => {
+        
+        const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
+        const id = +pokemon['id'];
+        const items = pokemon['name'].split('-');
+        const isUnique = items.length > 1;
+        const iterator = items.slice(1).join('-');
+        return `${url}${isUnique ? res['id'] + '-' + iterator : id}.png`;
       })
     );
   }
