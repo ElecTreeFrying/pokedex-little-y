@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { ScrollEventData } from 'tns-core-modules/ui/scroll-view/scroll-view';
 
 import { PokeObjectService } from "../../_common/services/poke-object.service";
 
@@ -12,6 +13,7 @@ import { PokeObjectService } from "../../_common/services/poke-object.service";
 })
 export class PokemonDataComponent implements OnInit {
 
+  isScrolled: boolean = true;
   pokemon: any;
   color: any;
   border: any;
@@ -30,15 +32,9 @@ export class PokemonDataComponent implements OnInit {
     this.pokemon['sprite'] = this.object.sprite(this.pokemon);
   }
 
-
-
-
-
-
-
-
-
-
+  onScroll(event: ScrollEventData) {
+    this.isScrolled = event.scrollY === 0 ? false : true;
+  }
 
   isBorder: boolean = false;
   showBorder() {

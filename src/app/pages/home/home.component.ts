@@ -29,10 +29,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.all = this.route.snapshot.data['resolve'];
     this.pokemon = this.all.slice(0, 15);
-
-    setTimeout(() => {
-      this.toPokemon(this.pokemon[0]);
-    }, 1000);
   }
 
   toPokemon(pokemon: any) {

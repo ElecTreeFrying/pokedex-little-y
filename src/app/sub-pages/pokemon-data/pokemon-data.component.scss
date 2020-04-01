@@ -9,6 +9,8 @@
 
 .fa-long-arrow-alt-right { color: black; }
 
+.scroll-line .hr { margin: 0; }
+
 .key { 
   padding: 0 10 5 10;
   background-color: violet; 
@@ -28,6 +30,8 @@
   font-family: 'VT323', 'VT323-Regular';
 }
 
+Label { letter-spacing: 0.05; }
+
 // styles
 
 .head {
@@ -46,28 +50,28 @@
 .preview {
   width: 330;
 
-  .image .number {
+  .number {
     width: 160;
   }
   
-  .image .number .index {
+  .number .index {
     font-size: 23;
     Label { letter-spacing: 0.15; }
   }
   
-  .image .number .name {
+  .number .name {
     font-size: 30;
     margin-top: -10;
     Label { letter-spacing: 0.15; }
   }
 
-  .image .number .genera {
+  .number .genera {
     // font-size: 30;
     margin-top: -10;
     Label { letter-spacing: 0.15; }
   }
 
-  .image .number .types {
+  .number .types {
     margin-top: 10;
 
     .type {
@@ -77,7 +81,7 @@
     }
   }
   
-  .image .number .abilities .ability {
+  .number .abilities .ability {
     padding: 0 10 0 0;
   }
 }
@@ -85,21 +89,96 @@
 .details {
   width: 330;
 
+  // global
+  
+  .spec {
+
+    .key { background-color: orange; }
+    .value { border-color: orange; }
+
+    .box {
+      width: 150;
+      margin-bottom: 10;
+    }
+  }
+
+  // elements
+
+  .description {
+    margin-bottom: 15;
+  }
+  
+  .abilities {
+    margin-bottom: 15;
+    
+    .inner-content {
+      margin-bottom: 10;
+    }
+  }
+
+  .pokemon-details {
+    margin-bottom: 15;
+  }
+  
   .evolution {
-    margin-bottom: 20;
+    margin-bottom: 15;
 
     .arrow {
       margin: 0 10
     }
   }
 
-  .spec {
-    margin-bottom: 10;
-
-    .box {
-      width: 160;
+  .egg-details {
+    margin-bottom: 15;
+  }
+  
+  .text-entries {
+    margin-bottom: 15;
+    
+    .inner-content {
       margin-bottom: 10;
     }
+  } 
+  
+  .pokedex-numbers {
+    margin-bottom: 15;
+
+    .inner-content {
+      margin-bottom: 10;
+
+      .key, .value {
+        width: 150;
+      }
+    }
+  }
+
+  .moves {
+    margin-bottom: 15;
+
+    .value {
+      padding: 10 10 5 10;
+    }
+
+    .move {
+      border-radius: 50%;
+      padding: 0 10 5 10;
+      margin-right: 10;
+      margin: 5 10 5 0;
+    }
+  }
+
+  .credits {
+    margin-top: 10;
+    padding: 15 0 15 0;
+  
+    Label { 
+      font-size: 17;
+      letter-spacing: 0.15; 
+      font-family: 'Cairo', 'Cairo-SemiBold'; 
+    }
+  
+    .app { margin-bottom: -5; }  
+    .developer { margin-top: -5; }
   }
 }
 

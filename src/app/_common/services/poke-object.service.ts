@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
 import * as _ from 'lodash';
 
-import { PokeApiService } from "./poke-api.service";
+import { PokeApiService, color } from "./poke-api.service";
 
 
 @Injectable({
@@ -22,7 +22,7 @@ export class PokeObjectService {
       ability['ability']['data'] = this.http.get(ability['ability']['url']).pipe(
         map((ability) => {
           
-          const effect_entry = ability['effect_entries'].filter(e => e.language.name === 'en')[0].effect;
+          const effect_entry = ability['effect_entries'].filter(e => e.language.name === 'en')[0].effect.split('\n').join(' ');
           
           let flavor_text_entry = ability['flavor_text_entries'].filter(e => e.language.name === 'en')
             .filter(e => e.language.name === 'en')
@@ -52,7 +52,9 @@ export class PokeObjectService {
 
   moves(_moves: any) {
     return _moves.map((move) => {
-          
+      
+      // move['display'] = move['name'].split('-').join(' ');
+
       // move
       move['move']['data'] = this.http.get(move['move']['url']).pipe(
         map((res) => {
@@ -60,6 +62,9 @@ export class PokeObjectService {
           // accuracy
           const accuracy = res['accuracy'];
           
+          // color 
+          const _color = '#' + color.light[res['type']['name']];
+
           // contest type
           let contest_type = null;
           if (res['contest_type']) {
@@ -158,7 +163,7 @@ export class PokeObjectService {
           // type
           const type = res['type']['name'];
 
-          return { accuracy, contest_type, contest_effect, damage_class, effect_entry, flavor_text_entry, meta, name, foreign, power, pp, super_contest_effect, target, type };
+          return { accuracy, _color, contest_type, contest_effect, damage_class, effect_entry, flavor_text_entry, meta, name, foreign, power, pp, super_contest_effect, target, type };
         })
       );
 
@@ -281,7 +286,7 @@ export class PokeObjectService {
           .filter(e => e['language']['name'] === 'en')
           .map((entry: any) => {
             entry['language'] = entry['language']['name'];
-            entry['flavor_text'] = entry['flavor_text'].replace(/\n/g, ' ');
+            entry['text'] = entry['flavor_text'].replace(/\n/g, ' ');
             entry['id'] = +entry['version']['url'].split('/').reverse()[1];
             entry['version_group'] = entry['version']['name'];
             entry['version'] = 'Pokémon ' + this.versionGroupPretty(entry['version']['name']);
@@ -292,7 +297,7 @@ export class PokeObjectService {
 
         specie['flavor_text_entries_display'] = specie['flavor_text_entries']
           .filter(e => e['version_group'] === 'alpha-sapphire')
-          .map(e => e['flavor_text'])[0];
+          .map(e => e['flavor_text'])[0].split('\n').join(' ');
 
         specie['flavor_text_entries'] = _.sortBy(specie['flavor_text_entries'], [ 'id' ])
 
@@ -329,7 +334,7 @@ export class PokeObjectService {
           pokedex['pokedex'] = name.split(' ').map((a: string) => 
             a[0].toUpperCase() + a.slice(1)).join(' ');
           return pokedex;
-        })
+        }).reverse();
 
         specie['shape'] = specie['shape']['name'];
 
