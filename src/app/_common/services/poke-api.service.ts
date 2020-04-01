@@ -30,14 +30,14 @@ export const color = {
 })
 export class PokeApiService {
 
-  private _id: number;
+  private _id: any = {};
   private _name: string;
 
   private pokemonSpriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 
   constructor(private http: HttpClient) { }
 
-  set id(id: number) { this._id = id; }
+  set id(id: any) { this._id = id; }
   get id() { return this._id; }
 
   set name(name: string) { this._name = name; }

@@ -17,7 +17,7 @@ export class PokedexDataResolve implements Resolve<any> {
 
   resolve(next: ActivatedRouteSnapshot,state: RouterStateSnapshot): any {
 
-    const id = this.api.id;
+    const id = this.api.id.dexId;
     return this.http.get(`https://pokeapi.co/api/v2/pokedex/${id}`).pipe(
       map((pokedex: any) => {
         const description = pokedex['descriptions'];

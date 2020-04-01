@@ -36,9 +36,4 @@ export class PokemonDataComponent implements OnInit {
     this.isScrolled = event.scrollY === 0 ? false : true;
   }
 
-  isBorder: boolean = false;
-  showBorder() {
-    this.isBorder = !this.isBorder;
-  }
-
 }

@@ -30,8 +30,9 @@ export class BerriesComponent implements OnInit {
   }
 
   navigate(item: any) {
-    this.api.id = item['id'];
-    this.router.navigate(['berry-data'], {
+    this.api.id.berryId = item['id'];
+    console.log(['/', 'berry-data']);
+    this.router.navigate(['/', 'berry-data'], {
       animated: true,
       transition: {
         name: 'slide',

@@ -19,7 +19,7 @@ export class BerryDataResolve implements Resolve<any> {
 
   resolve(next: ActivatedRouteSnapshot,state: RouterStateSnapshot): any {
 
-    const id = this.api.id;
+    const id = this.api.id.berryId;
     return this.http.get(`https://pokeapi.co/api/v2/berry/${id}`).pipe(
       map((berry: any) => {
         

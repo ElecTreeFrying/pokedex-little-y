@@ -18,7 +18,9 @@ export class PokeObjectService {
 
   abilities(_abilities: any) {
     return _abilities.map((ability) => {
-          
+      
+      ability['ability']['name'] = ability['ability']['name'].split('-').join(' ');
+
       ability['ability']['data'] = this.http.get(ability['ability']['url']).pipe(
         map((ability) => {
           
@@ -53,7 +55,7 @@ export class PokeObjectService {
   moves(_moves: any) {
     return _moves.map((move) => {
       
-      // move['display'] = move['name'].split('-').join(' ');
+      move['display'] = move['move']['name'].split('-').join(' ');
 
       // move
       move['move']['data'] = this.http.get(move['move']['url']).pipe(
@@ -192,6 +194,7 @@ export class PokeObjectService {
   }
 
   species(_species: any) {
+    console.log(_species['url']);
     return  this.http.get(_species['url']).pipe(
       map((specie) => {
         
@@ -325,16 +328,20 @@ export class PokeObjectService {
           })
         )
         
-        specie['habitat'] = specie['habitat']['name'];
+        if (specie['habitat']) {
+          specie['habitat'] = specie['habitat']['name'];
+        } else {
+          specie['habitat'] = null;
+        }
 
         specie['hatch_counter'] = `${(specie['hatch_counter'] + 1) * 255} steps`;
         
-        specie['pokedex_numbers'] = specie['pokedex_numbers'].map((pokedex) => {
-          const name = pokedex['pokedex']['name'].split('-').join(' ');
-          pokedex['pokedex'] = name.split(' ').map((a: string) => 
-            a[0].toUpperCase() + a.slice(1)).join(' ');
-          return pokedex;
-        }).reverse();
+        // specie['pokedex_numbers'] = specie['pokedex_numbers'].map((pokedex) => {
+        //   const name = pokedex['pokedex']['name'].split('-').join(' ');
+        //   pokedex['pokedex'] = name.split(' ').map((a: string) => 
+        //     a[0].toUpperCase() + a.slice(1)).join(' ');
+        //   return pokedex;
+        // }).reverse();
 
         specie['shape'] = specie['shape']['name'];
 

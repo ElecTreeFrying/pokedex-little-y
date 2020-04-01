@@ -1,7 +1,7 @@
 
-<ActionBar class="action-bar" [title]="'Pokémon'" (tap)="showBorder()">
+<ActionBar class="action-bar" [title]="'Pokémon'">
   
-  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" (tap)="router.back()"></NavigationButton>
+  <NavigationButton icon="font://&#xf060;" class="fas fa-arrow-left" style="color:white" (tap)="router.back()"></NavigationButton>
   
 </ActionBar>
 
@@ -20,12 +20,12 @@
     class="content layout"
     flexDirection="column">
     
-    <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+    <FlexboxLayout
       row="0" col="0"
       justifyContent="space-between"
       class="preview">
       
-      <Image [ngClass]="{ 'bo': isBorder }"
+      <Image
         class="image"
         width="150"
         height="150"
@@ -35,7 +35,7 @@
         [src]="pokemon?.sprites?.front_default">
       </Image>
 
-      <FlexboxLayout [ngClass]="{ 'bo': isBorder }"
+      <FlexboxLayout
         class="number"
         flexWrap="wrap"
         flexDirection="column">
@@ -259,7 +259,10 @@
             class="value"
             justifyContent="center">
 
-            <FlexboxLayout class="content">
+            <FlexboxLayout 
+              class="content"
+              justifyContent="center"
+              flexWrap="wrap">
           
               <FlexboxLayout
                 class="first"
@@ -279,69 +282,82 @@
                 <Label 
                   [text]="((pokemon?.species | async)?.evolution_chain | async)?.first?.name"
                   textTransform="capitalize"
+                  textWrap="true"
                   textAlignment="center"></Label>
 
               </FlexboxLayout>
-              
-              <FlexboxLayout 
-                class="arrow"
-                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.second">
-                <Label 
-                  class="fas fa-long-arrow-alt-right"
-                  text="&#xf30b;" 
-                  alignSelf="center"></Label>
-              </FlexboxLayout>
-    
+                  
               <FlexboxLayout
                 class="second"
                 *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.second"
-                justifyContent="center"
-                flexDirection="column">
-                
-                <Image
-                  decodeHeight="70"
-                  decodeWidth="70"
-                  height="70"
-                  width="70"
-                  loadMode="async"
-                  [src]="((pokemon?.species | async)?.evolution_chain | async)?.second?.sprite">
-                </Image>
-    
-                <Label 
-                  [text]="((pokemon?.species | async)?.evolution_chain | async)?.second?.name"
-                  textTransform="capitalize"
-                  textAlignment="center"></Label>
-    
-              </FlexboxLayout>
+                justifyContent="center">
               
-              <FlexboxLayout 
-                class="arrow"
-                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.third">
-                <Label 
-                  class="fas fa-long-arrow-alt-right"
-                  text="&#xf30b;" 
-                  alignSelf="center"></Label>
-              </FlexboxLayout>
+                <FlexboxLayout 
+                  class="arrow"
+                  *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.second">
+                  <Label 
+                    class="fas fa-long-arrow-alt-right"
+                    style="color:black"
+                    text="&#xf30b;" 
+                    alignSelf="center"></Label>
+                </FlexboxLayout>
+
+                <FlexboxLayout flexDirection="column">
+                  
+                  <Image
+                    flexWrapBefore="true"
+                    decodeHeight="70"
+                    decodeWidth="70"
+                    height="70"
+                    width="70"
+                    loadMode="async"
+                    [src]="((pokemon?.species | async)?.evolution_chain | async)?.second?.sprite">
+                  </Image>
+      
+                  <Label 
+                    [text]="((pokemon?.species | async)?.evolution_chain | async)?.second?.name"
+                    textTransform="capitalize"
+                    textWrap="true"
+                    textAlignment="center"></Label>
+
+                </FlexboxLayout>
     
+              </FlexboxLayout>
+                
               <FlexboxLayout
                 class="third"
-                alignContent="center"
-                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.third"
-                flexDirection="column">
-                
-                <Image
-                  decodeHeight="70"
-                  decodeWidth="70"
-                  height="70"
-                  width="70"
-                  loadMode="async"
-                  [src]="((pokemon?.species | async)?.evolution_chain | async)?.third?.sprite">
-                </Image>
-    
-                <Label 
-                  [text]="((pokemon?.species | async)?.evolution_chain | async)?.third?.name"
-                  textTransform="capitalize"
-                  textAlignment="center"></Label>
+                justifyContent="center"
+                *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.third">
+   
+                <FlexboxLayout 
+                  class="arrow"
+                  *ngIf="((pokemon?.species | async)?.evolution_chain | async)?.third">
+                  <Label 
+                    class="fas fa-long-arrow-alt-right"
+                    style="color:black"
+                    text="&#xf30b;" 
+                    alignSelf="center"></Label>
+                </FlexboxLayout>
+
+                <FlexboxLayout flexDirection="column">
+
+                  <Image
+                    flexWrapBefore="true"
+                    decodeHeight="70"
+                    decodeWidth="70"
+                    height="70"
+                    width="70"
+                    loadMode="async"
+                    [src]="((pokemon?.species | async)?.evolution_chain | async)?.third?.sprite">
+                  </Image>
+      
+                  <Label 
+                    [text]="((pokemon?.species | async)?.evolution_chain | async)?.third?.name"
+                    textTransform="capitalize"
+                    textWrap="true"
+                    textAlignment="center"></Label>
+
+                </FlexboxLayout>
 
               </FlexboxLayout>
     
@@ -477,7 +493,7 @@
                [ngStyle]="{
                 'background-color': (move?.move?.data | async)?._color
                }"
-              [text]="move?.move?.name" textWrap="true"></Label>
+              [text]="move?.display" textWrap="true"></Label>
 
           </FlexboxLayout>
         </FlexboxLayout>

@@ -28,8 +28,9 @@ export class PokemonComponent implements OnInit {
   }
 
   navigate(item) {
-    this.api.id = item['id'];
-    this.router.navigate(['type-data'], {
+    this.api.id.typeId = item['id'];
+    console.log(['/', 'type-data']);
+    this.router.navigate(['/', 'type-data'], {
       animated: true,
       transition: {
         name: 'slide',

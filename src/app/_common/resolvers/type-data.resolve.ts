@@ -17,7 +17,7 @@ export class TypeDataResolve implements Resolve<any> {
 
   resolve(next: ActivatedRouteSnapshot,state: RouterStateSnapshot): any {
 
-    const id = this.api.id;
+    const id = this.api.id.typeId;
     return this.http.get(`https://pokeapi.co/api/v2/type/${id}`).pipe(
       map((type: any) => {
         const name = type['names'];
