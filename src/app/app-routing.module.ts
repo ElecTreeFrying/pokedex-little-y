@@ -23,6 +23,7 @@ const routes: Routes = [
     path: "berries", loadChildren: () => import("~/app/pages/berries/berries.module").then((m) => m.BerriesModule),
     resolve: { resolve: BerriesDataResolve } 
   },
+  { path: "about", loadChildren: () => import("~/app/pages/about/about.module").then((m) => m.AboutModule) },
   { 
     path: "pokemon-data", 
     loadChildren: () => import("~/app/sub-pages/pokemon-data/pokemon-data.module").then((m) => m.PokemonDataModule),

@@ -14,6 +14,7 @@ import { AnimationCurve } from 'tns-core-modules/ui/enums';
 export class AppComponent implements OnInit, AfterViewInit { 
 
   item: any;
+  // nav = [ 'Home', 'Pokédex', 'Pokémon', 'Generation', 'Berries', 'About' ];
   nav = [ 'Home', 'Pokédex', 'Pokémon', 'Generation', 'Berries' ];
 
   @ViewChild(RadSideDrawerComponent, { static: false }) 
@@ -33,13 +34,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   
   ngOnInit() {
-    // this.test();
-  }
-
-  test() {
-    setTimeout(() => { 
-      this.router.navigate(['/', 'berries']);
-    }), 1000;
   }
 
   onDrawerClosed() {
