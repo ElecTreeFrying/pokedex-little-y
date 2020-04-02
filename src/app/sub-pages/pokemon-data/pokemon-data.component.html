@@ -11,7 +11,8 @@
     class="head layout" 
     row="0" col="0">
     <Label
-      class="text" text="Pokemon details"></Label>
+      class="text" [text]="pokemon?.name | pokemonName: 'long'"
+      textTransform="capitalize"></Label>
   </FlexboxLayout>
 
   <GridLayout
@@ -32,7 +33,7 @@
         decodeHeight="150"
         decodeWidth="150"
         loadMode="async"
-        [src]="pokemon?.sprites?.front_default">
+        [src]="pokemon?.sprite | async">
       </Image>
 
       <FlexboxLayout
@@ -46,7 +47,7 @@
           ></Label>
         <Label
           class="name"
-          [text]="pokemon?.name"
+          [text]="pokemon?.name | pokemonName: 'short'"
           textTransform="capitalize"></Label>
         <Label
           class="genera"

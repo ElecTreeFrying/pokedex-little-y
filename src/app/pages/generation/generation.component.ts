@@ -26,7 +26,6 @@ export class GenerationComponent implements OnInit {
 
   navigate(item) {
     this.api.id.genId = item['id'];
-    console.log(['/', 'generation-data']);
     this.router.navigate(['/', 'generation-data'], {
       animated: true,
       transition: {

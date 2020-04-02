@@ -29,7 +29,7 @@ export class PokemonDataComponent implements OnInit {
     this.pokemon['abilities'] = this.object.abilities(this.pokemon['abilities']);
     this.pokemon['moves'] = this.object.moves(this.pokemon['moves']);
     this.pokemon['species'] = this.object.species(this.pokemon['species']);
-    this.pokemon['sprite'] = this.object.sprite(this.pokemon);
+    this.pokemon['sprite'] = this.object.image(this.pokemon['url']);
   }
 
   onScroll(event: ScrollEventData) {

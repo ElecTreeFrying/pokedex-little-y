@@ -29,16 +29,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.all = this.route.snapshot.data['resolve'];
     this.pokemon = this.all.slice(0, 15);
-
-    setTimeout(() => {
-      // this.toPokemon(this.pokemon[0]);
-    }, 1000);
   }
 
   toPokemon(pokemon: any) {
     this.api.id.pokeId = pokemon['id'];
     this.api.name = pokemon['name'].split('-')[0];
-    console.log(['/', 'pokemon-data']);
     this.router.navigate(['/', 'pokemon-data'], {
       animated: true,
       transition: {

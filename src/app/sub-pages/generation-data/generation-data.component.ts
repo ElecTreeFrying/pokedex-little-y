@@ -35,7 +35,6 @@ export class GenerationDataComponent implements OnInit {
 
   toPokemon(pokemon: any) {
     this.api.id.pokeId = pokemon['id'];
-    console.log(['/', 'pokemon-data']);
     this.router.navigate(['/', 'pokemon-data'], {
       animated: true,
       transition: {

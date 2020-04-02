@@ -18,7 +18,8 @@ export class PokemonDataResolve implements Resolve<any> {
   resolve(next: ActivatedRouteSnapshot,state: RouterStateSnapshot): any {
 
     const id = this.api.id.pokeId;
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${id}`).pipe(
+    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    return this.http.get(url).pipe(
       map((pokemon: any) => {
         
         pokemon['height'] = `${+pokemon['height'] * 10} cm`;
@@ -33,6 +34,8 @@ export class PokemonDataResolve implements Resolve<any> {
           type['type'] = type['type']['name']
           return type;
         });
+
+        pokemon['url'] = url;
         
         delete pokemon['forms'];
         delete pokemon['game_indices'];

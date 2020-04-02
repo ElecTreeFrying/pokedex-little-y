@@ -11,6 +11,8 @@ import { PokeApiService, color } from "./poke-api.service";
 })
 export class PokeObjectService {
 
+  sprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+
   constructor(
     private http: HttpClient,
     private api: PokeApiService
@@ -194,7 +196,6 @@ export class PokeObjectService {
   }
 
   species(_species: any) {
-    console.log(_species['url']);
     return  this.http.get(_species['url']).pipe(
       map((specie) => {
         
@@ -297,12 +298,18 @@ export class PokeObjectService {
             return entry;
           });
       
+        specie['flavor_text_entries'] = _.sortBy(specie['flavor_text_entries'], [ 'id' ])
 
         specie['flavor_text_entries_display'] = specie['flavor_text_entries']
-          .filter(e => e['version_group'] === 'alpha-sapphire')
+          .filter(e => {
+            const isUltraMoon = e['version_group'] === 'ultra-moon';
+            const isUltraSun = e['version_group'] === 'ultra-sun';
+            const isMoon = e['version_group'] === 'moon';
+            const isSun = e['version_group'] === 'sun';
+            const isAlphaSapphire = e['version_group'] === 'alpha-sapphire';
+            return isUltraMoon || isUltraSun || isMoon || isSun || isAlphaSapphire;
+          })
           .map(e => e['flavor_text'])[0].split('\n').join(' ');
-
-        specie['flavor_text_entries'] = _.sortBy(specie['flavor_text_entries'], [ 'id' ])
 
         specie['genera'] = specie['genera'].filter(e => e.language.name === 'en')[0].genus;
         
@@ -331,17 +338,17 @@ export class PokeObjectService {
         if (specie['habitat']) {
           specie['habitat'] = specie['habitat']['name'];
         } else {
-          specie['habitat'] = null;
+          specie['habitat'] = '-';
         }
 
         specie['hatch_counter'] = `${(specie['hatch_counter'] + 1) * 255} steps`;
         
-        // specie['pokedex_numbers'] = specie['pokedex_numbers'].map((pokedex) => {
-        //   const name = pokedex['pokedex']['name'].split('-').join(' ');
-        //   pokedex['pokedex'] = name.split(' ').map((a: string) => 
-        //     a[0].toUpperCase() + a.slice(1)).join(' ');
-        //   return pokedex;
-        // }).reverse();
+        specie['pokedex_numbers'] = specie['pokedex_numbers'].map((pokedex) => {
+          const name = pokedex['pokedex']['name'].split('-').join(' ');
+          pokedex['pokedex'] = name.split(' ').map((a: string) => 
+            a[0].toUpperCase() + a.slice(1)).join(' ');
+          return pokedex;
+        }).reverse();
 
         specie['shape'] = specie['shape']['name'];
 
@@ -363,18 +370,29 @@ export class PokeObjectService {
     );
   }
 
-  sprite(pokemon: any) {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${this.api.name}`).pipe(
-      map((res) => {
-        
-        const url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
-        const id = +pokemon['id'];
-        const items = pokemon['name'].split('-');
-        const isUnique = items.length > 1;
-        const iterator = items.slice(1).join('-');
-        return `${url}${isUnique ? res['id'] + '-' + iterator : id}.png`;
+  image(_url: any) {
+    return this.http.get(_url).pipe(
+      map((monster) => {
+      const entry_number = +monster['id'];
+      if (entry_number < 10091) {
+        return `${this.sprite}${entry_number}.png`;
+      } else {
+        let _name: string;
+        if (monster['name'] === 'mr-mime') {
+          _name = monster['name'].split('-').slice(2).join('-');
+        } else {
+          _name = monster['name'].split('-').slice(1).join('-');
+        }
+        const entry_number = +monster['species']['url'].split('/').reverse()[1];
+        if (entry_number === 784) {
+          _name = monster['name'].split('-').slice(1).join('-').slice(2);
+          return `${this.sprite}${entry_number}-${_name}.png`;
+        } else {
+          return `${this.sprite}${entry_number}-${_name}.png`;
+        }
+      }
       })
-    );
+    )
   }
 
   private versionGroupPretty(group: string) {
