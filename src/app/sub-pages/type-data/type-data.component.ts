@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { ActionBar } from 'tns-core-modules/ui/action-bar';
 import { ScrollView, ScrollEventData } from 'tns-core-modules/ui/scroll-view/scroll-view';
+import { TextField } from 'tns-core-modules/ui/text-field';
 import { AnimationCurve } from 'tns-core-modules/ui/enums/enums';
+import { EventData } from 'tns-core-modules/data/observable';
 
 import { PokeApiService } from "../../_common/services/poke-api.service";
 import { TypeObjectService } from "../../_common/services/type-object.service";
@@ -17,7 +20,13 @@ export class TypeDataComponent implements OnInit {
   
   all: any;
   types: any;
+  _types: any[];
+  textFieldActive: boolean = false;
   isLoading: boolean;
+  isLoaded: boolean = false;
+  textField: TextField;
+  oldIndex = 15;
+  newIndex = 0;
 
   constructor(
     public router: RouterExtensions,
@@ -30,7 +39,49 @@ export class TypeDataComponent implements OnInit {
     this.types = this.route.snapshot.data['resolve'];
     this.types['name'] = this.object.name(this.types['name']);
     this.all = this.object.pokemon(this.types['pokemon']);
+    this._types = this.object.pokemon(this.types['pokemon']);
     this.types['pokemon'] = this.all.slice(0, 15);
+  }
+
+  onActionBarLoaded(event: EventData) {
+    const object = <ActionBar>event.object;
+
+    const overflowIcon = object.nativeView.getOverflowIcon();
+    overflowIcon.setColorFilter(
+      android.graphics.Color.parseColor('#FFFFFF'),
+      android.graphics.PorterDuff.Mode.SRC_ATOP,
+    );
+  }
+
+  loadAllPokemon() {
+    this.types['pokemon'] = this.all;
+    this._types = this.all;
+    this.isLoaded = true;
+  }
+
+  onTextChange(event: EventData) {
+    const object = <TextField>event.object;
+    const text = object.text;
+
+    this.types['pokemon'] = this._types.filter((e: any) => e['name'].toLowerCase().includes(text));
+
+    if (text.length > 0) {
+      this.textFieldActive = true;
+    } else {
+      this.textFieldActive = false;
+      this.types['pokemon'] = this._types;
+    }
+  }
+
+  onBlur(event: EventData) {
+    this.textField.text = '';
+    if (this.isLoaded) return;
+    this.types['pokemon'] = this._types;
+  }
+
+  onLoaded(event: EventData) {
+    const object = <TextField>event.object;
+    this.textField = object;
   }
 
   toPokemon(pokemon: any) {
@@ -45,10 +96,10 @@ export class TypeDataComponent implements OnInit {
     });
   }
 
-  oldIndex = 15;
-  newIndex = 0;
-
   onScroll(event: ScrollEventData) {
+
+    if (this.textFieldActive || this.isLoaded) return;
+
     const scroll = <ScrollView>event.object;
     const refY = event.scrollY;
     const maxY = scroll.scrollableHeight;
@@ -58,6 +109,7 @@ export class TypeDataComponent implements OnInit {
     if (maxY === refY) {
       const newEntries = this.all.slice(this.oldIndex, this.newIndex);
       this.types['pokemon'] = this.types['pokemon'].concat(newEntries);
+      this._types = this.types['pokemon'].concat(newEntries);
       this.oldIndex = this.newIndex;
       this.isLoading = true;
     } else {
