@@ -9,57 +9,50 @@
 
 ### Home
 
-[demo][home]
-
-1. Lists entire national pokédex.
-2. Select a pokémon
+1. Lists Kanto Pokédex. [demo][home]
+2. Filter pokemon by name. [demo][home]
+3. Select a pokémon [demo][home]
+   - Display pokémon details. [demo][home]
 
 ### Pokédex
 
-[demo][pokedex]
-
-1. Lists all 14 pokédexes.
-2. Select one pokédex.
-   -  Display all pokémon, filtered by selected selected pokédex.
-      -  Select a pokémon.
-         -  Display pokémon details. **→ TODO**
+1. Lists all 14 pokédexes. [demo][home]
+2. Select one pokédex. [demo][home]
+   -  Display all pokémon, filtered by selected selected pokédex. [demo][home]
+      -  Filter pokemon by name. [demo][home]
+      -  Select a pokémon. [demo][home]
+         -  Display pokémon details. [demo][home]
 
 ### Pokémon
 
-[demo][pokemon]
-
-1. Lists all 18 pokémon types.
-2. Select one pokémon type.
-   -  Display all pokémon, filtered by selected type .
-      -  Select a pokémon.
-         -  Display pokémon details. **→ TODO**
+1. Lists all 18 pokémon types. [demo][pokemon]
+2. Select one pokémon type. [demo][pokemon]
+   -  Display all pokémon, filtered by selected type. [demo][pokemon]
+      -  Filter pokemon by name.[demo][pokemon]
+      -  Select a pokémon.[demo][pokemon]
+         -  Display pokémon details.[demo][pokemon]
 
 ### Generation
 
-[demo][generation]
-
-1. Lists all 7 pokémon generations.
-2. Select one generation.
-   -  Display all pokémon, filtered by generation .
-      -  Select a pokémon.
-         -  Display pokémon details. **→ TODO**
+1. Lists all 7 pokémon generations. [demo][pokemon]
+2. Select one generation. [demo][pokemon]
+   -  Display all pokémon, filtered by generation. [demo][pokemon]
+      -  Filter pokemon by name. [demo][pokemon]
+      -  Select a pokémon. [demo][pokemon]
+         -  Display pokémon details. [demo][pokemon]
 
 ### Berries
 
-[demo][berries]
-
-1. Lists 64 kinds of berries
-2. Select a berry.
-    -  Display berry details
-    -  Game indices **→ TODO**
+1. Lists 64 kinds of berries [demo][pokemon]
+2. Select a berry. [demo][pokemon]
+    -  Display berry details [demo][pokemon]
 
 ### TODO
 
-1. Autocomplete pokemon and berries.
-2. Pokemon moves.
-3. Pokemon items.
-4. Pokemon locations.
-5. Add more details to sidebar.
+1. Pokemon moves.
+2. Pokemon items.
+3. Pokemon locations.
+4. Add more details to sidebar.
 
 ## Plugins used
 
@@ -70,15 +63,14 @@
 
 ## Components used
 
-1. `Label`
-6. `Button`
-8. `Image`
-2. `ActionBar`
-3. `NavigationButton`
+1. `Button`
+2. `Image`
+3. `ActionBar`
+4. `NavigationButton`
 5. `ListView`
-4. `ScrollView`
+6. `ScrollView`
 7. `RadSideDrawer`
-9. `MDRipple` (plugin)
+8. `MDRipple` (plugin)
 
 ## Layouts used
 
@@ -113,6 +105,12 @@
 > npm install
 > tns run android --env.uglify --env.aot
 ```
+
+## Issues
+
+TextField event, (textChange). Not working on device keyboard. #8494
+
+Unable to change background color of ActionBar installed on a device. #8469
 
 ## Contributing
 
