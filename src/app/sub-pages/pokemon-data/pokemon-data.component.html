@@ -93,10 +93,16 @@
         <FlexboxLayout
           class="description"
           flexDirection="column">
-          <FlexboxLayout class="key">
-            <Label text="Description"></Label>
-          </FlexboxLayout>
           <FlexboxLayout 
+            class="key" 
+            (tap)="toggle(0)"
+            justifyContent="space-between"
+            alignItems="center">
+            <Label text="Description"></Label>
+            <Label *ngIf="!show[0]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[0]" class="fas fa-angle-up" text="&#xf106;"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout *ngIf="show[0]"
             class="value"
             justifyContent="center">
             <Label 
@@ -111,10 +117,15 @@
           class="abilities"
           flexDirection="column">
           <FlexboxLayout
-            class="key">
+            class="key" 
+            (tap)="toggle(1)"
+            justifyContent="space-between"
+            alignItems="center">
             <Label text="Abilities"></Label>
+            <Label *ngIf="!show[1]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[1]" class="fas fa-angle-up" text="&#xf106;"></Label>
           </FlexboxLayout>
-          <FlexboxLayout 
+          <FlexboxLayout *ngIf="show[1]"
             class="value"
             flexDirection="column">
 
@@ -140,11 +151,15 @@
           class="pokemon-details"
           flexDirection="column">
           <FlexboxLayout 
-            class="key"
-            justifyContent="flex-start">
-            <Label text="Details" textAlignment="left"></Label>
+            class="key" 
+            (tap)="toggle(2)"
+            justifyContent="space-between"
+            alignItems="center">
+            <Label text="Details"></Label>
+            <Label *ngIf="!show[2]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[2]" class="fas fa-angle-up" text="&#xf106;"></Label>
           </FlexboxLayout>
-          <FlexboxLayout
+          <FlexboxLayout *ngIf="show[2]"
             class="value spec"
             style="padding:10 10"
             justifyContent="space-between"
@@ -252,11 +267,17 @@
           flexWrapBefore="true"
           flexDirection="column">
           
-          <FlexboxLayout class="key">
+          <FlexboxLayout 
+            class="key" 
+            (tap)="toggle(3)"
+            justifyContent="space-between"
+            alignItems="center">
             <Label text="Evolution"></Label>
+            <Label *ngIf="!show[3]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[3]" class="fas fa-angle-up" text="&#xf106;"></Label>
           </FlexboxLayout>
           
-          <FlexboxLayout 
+          <FlexboxLayout *ngIf="show[3]"
             class="value"
             justifyContent="center">
 
@@ -373,10 +394,14 @@
           flexDirection="column">
           <FlexboxLayout 
             class="key"
-            justifyContent="flex-start">
-            <Label text="Egg details" textAlignment="left"></Label>
+            (tap)="toggle(4)"
+            justifyContent="space-between"
+            alignItems="center">
+            <Label text="Egg details"></Label>
+            <Label *ngIf="!show[4]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[4]" class="fas fa-angle-up" text="&#xf106;"></Label>
           </FlexboxLayout>
-          <FlexboxLayout
+          <FlexboxLayout *ngIf="show[4]"
             class="value spec"
             style="padding:10 10"
             justifyContent="space-between"
@@ -422,10 +447,15 @@
           class="text-entries"
           flexDirection="column">
           <FlexboxLayout
-            class="key">
+            class="key" 
+            (tap)="toggle(5)"
+            justifyContent="space-between"
+            alignItems="center">
             <Label text="Description entries"></Label>
+            <Label *ngIf="!show[5]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[5]" class="fas fa-angle-up" text="&#xf106;"></Label>
           </FlexboxLayout>
-          <FlexboxLayout 
+          <FlexboxLayout *ngIf="show[5]"
             class="value"
             flexDirection="column">
 
@@ -451,10 +481,15 @@
           class="pokedex-numbers"
           flexDirection="column">
           <FlexboxLayout
-            class="key">
+            class="key" 
+            (tap)="toggle(6)"
+            justifyContent="space-between"
+            alignItems="center">
             <Label text="Pokedex entry numbers"></Label>
+            <Label *ngIf="!show[6]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[6]" class="fas fa-angle-up" text="&#xf106;"></Label>
           </FlexboxLayout>
-          <FlexboxLayout 
+          <FlexboxLayout *ngIf="show[6]"
             class="value"
             flexDirection="column">
 
@@ -480,10 +515,14 @@
           flexDirection="column">
           <FlexboxLayout 
             class="key"
-            justifyContent="flex-start">
+            (tap)="toggle(7)"
+            justifyContent="space-between"
+            alignItems="center">
             <Label text="Moves"></Label>
+            <Label *ngIf="!show[7]" class="fas fa-angle-down" text="&#xf107;"></Label>
+            <Label *ngIf="show[7]" class="fas fa-angle-up" text="&#xf106;"></Label>
           </FlexboxLayout>
-          <FlexboxLayout 
+          <FlexboxLayout *ngIf="show[7]"
             class="value"
             justifyContent="flex-start"
             flexWrap="wrap">

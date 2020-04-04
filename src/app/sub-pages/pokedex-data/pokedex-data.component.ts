@@ -24,10 +24,12 @@ export class PokedexDataComponent implements OnInit {
   _pokemon: any[];
   textFieldActive: boolean = false;
   isShowActionItem: boolean;
+  isNavigating: boolean = false;
   isLoading: boolean;
   isLoaded: boolean = false;
   textField: TextField;
-  oldIndex = 15;
+  indexIncrement = 10;
+  oldIndex = 10;
   newIndex = 0;
 
   constructor(
@@ -42,12 +44,13 @@ export class PokedexDataComponent implements OnInit {
     this.pokemon['description'] = this.object.description(this.pokemon['description']);
     this.pokemon['name'] = this.object.names(this.pokemon['name']);
     this.all = this.object.pokemonSpecies(this.pokemon['pokemon_entries']);
-    this.pokemon['pokemon_entries'] = this.all.slice(0, 15);
-    this._pokemon = this.all.slice(0, 15);
+    this.pokemon['pokemon_entries'] = this.all.slice(0, this.oldIndex);
+    this._pokemon = this.all.slice(0, this.oldIndex);
     this.isShowActionItem = this.pokemon.description.length > 0;
   }
 
   onActionBarLoaded(event: EventData) {
+    this.isNavigating = false;
     const object = <ActionBar>event.object;
 
     const overflowIcon = object.nativeView.getOverflowIcon();
@@ -64,8 +67,8 @@ export class PokedexDataComponent implements OnInit {
   }
 
   onTextChange(event: EventData) {
-    const object = <TextField>event.object;
-    const text = object.text;
+    this.textField = <TextField>event.object;
+    const text = this.textField.text.toLowerCase();
 
     this.pokemon['pokemon_entries'] = this._pokemon.filter((e: any) => e['name'].includes(text));
 
@@ -78,18 +81,12 @@ export class PokedexDataComponent implements OnInit {
   }
 
   onBlur(event: EventData) {
-    this.textField.text = '';
-    if (this.isLoaded) return;
-    this.pokemon['pokemon_entries'] = this._pokemon;
-  }
-
-  onLoaded(event: EventData) {
-    const object = <TextField>event.object;
-    this.textField = object;
+    this.textFieldActive ? this.textField.text = '' : 0;
   }
 
   toPokemon(pokemon: any) {
-    this.textField.text = '';
+    this.isNavigating = true;
+    this.textFieldActive ? this.textField.text = '' : 0;
     this.api.id.pokeId = pokemon['id'];
     this.router.navigate(['/', 'pokemon-data'], {
       animated: true,
@@ -103,25 +100,25 @@ export class PokedexDataComponent implements OnInit {
 
   onScroll(event: ScrollEventData) {
 
-    if (this.textFieldActive || this.isLoaded) return;
+    if (this.textFieldActive || this.isLoaded || this.isNavigating) return;
 
     const scroll = <ScrollView>event.object;
     const refY = event.scrollY;
     const maxY = scroll.scrollableHeight;
 
-    this.newIndex = this.oldIndex + 30;
+    this.newIndex = this.oldIndex + this.indexIncrement;
 
     if (maxY === refY) {
       const newEntries = this.all.slice(this.oldIndex, this.newIndex);
       this.pokemon['pokemon_entries'] = this.pokemon['pokemon_entries'].concat(newEntries);
-      this._pokemon = this.pokemon['pokemon_entries'].concat(newEntries);
+      this._pokemon = this._pokemon.concat(newEntries);
       this.oldIndex = this.newIndex;
       this.isLoading = true;
     } else {
       this.isLoading = false;
     }
 
-    if (maxY === refY && this.all.length === this.pokemon['pokemon_entries'].length) {
+    if (maxY === refY && this.all.length === this._pokemon.length) {
       this.isLoading = false;
     }
   }

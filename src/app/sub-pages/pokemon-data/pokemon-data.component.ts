@@ -17,6 +17,7 @@ export class PokemonDataComponent implements OnInit {
   pokemon: any;
   color: any;
   border: any;
+  show: any = { '0': false, '1': false, '2': false,'3': false, '4': false, '5': false };
 
   constructor(
     public router: RouterExtensions,
@@ -34,6 +35,10 @@ export class PokemonDataComponent implements OnInit {
 
   onScroll(event: ScrollEventData) {
     this.isScrolled = event.scrollY === 0 ? false : true;
+  }
+
+  toggle(item: number) {
+    this.show[item] = !this.show[item];
   }
 
 }

@@ -20,7 +20,6 @@
       hint="Search pokémon"
       textAlignment="left"
       (blur)="onBlur($event)"
-      (loaded)="onLoaded($event)"
       (textChange)="onTextChange($event)">
     </TextField>
 
@@ -47,8 +46,8 @@
             decodeWidth="70"
             width="70"
             height="70"
-            isLoaded="false"
-            isLoading="false"
+            isLoaded="true"
+            isLoading="true"
             loadMode="async"
             [src]="item?.image">
           </Image>

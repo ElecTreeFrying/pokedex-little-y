@@ -23,9 +23,11 @@ export class GenerationDataComponent implements OnInit {
   _generation: any[];
   textFieldActive: boolean = false;
   isLoading: boolean;
+  isNavigating: boolean = false;
   isLoaded: boolean = false;
   textField: TextField;
-  oldIndex = 15;
+  indexIncrement = 10;
+  oldIndex = 10;
   newIndex = 0;
 
   constructor(
@@ -39,11 +41,12 @@ export class GenerationDataComponent implements OnInit {
     this.generation = this.route.snapshot.data['resolve'];
     this.generation['name'] = this.object.name(this.generation['name']);
     this.all = this.object.pokemonSpecies(this.generation['pokemon_species']);
-    this._generation = this.object.pokemonSpecies(this.generation['pokemon_species']);
-    this.generation['pokemon_species'] = this.all.slice(0, 15);
+    this.generation['pokemon_species'] = this.all.slice(0, this.oldIndex);
+    this._generation = this.all.slice(0, this.oldIndex);
   }
 
   onActionBarLoaded(event: EventData) {
+    this.isNavigating = false;
     const object = <ActionBar>event.object;
 
     const overflowIcon = object.nativeView.getOverflowIcon();
@@ -60,10 +63,10 @@ export class GenerationDataComponent implements OnInit {
   }
 
   onTextChange(event: EventData) {
-    const object = <TextField>event.object;
-    const text = object.text;
+    this.textField = <TextField>event.object;
+    const text = this.textField.text.toLowerCase();
 
-    this.generation['pokemon_species'] = this._generation.filter((e: any) => e['name'].toLowerCase().includes(text));
+    this.generation['pokemon_species'] = this._generation.filter((e: any) => e['name'].includes(text));
 
     if (text.length > 0) {
       this.textFieldActive = true;
@@ -74,17 +77,12 @@ export class GenerationDataComponent implements OnInit {
   }
 
   onBlur(event: EventData) {
-    this.textField.text = '';
-    if (this.isLoaded) return;
-    this.generation['pokemon_species'] = this._generation;
-  }
-
-  onLoaded(event: EventData) {
-    const object = <TextField>event.object;
-    this.textField = object;
+    this.textFieldActive ? this.textField.text = '' : 0;
   }
 
   toPokemon(pokemon: any) {
+    this.isNavigating = true;
+    this.textFieldActive ? this.textField.text = '' : 0;
     this.api.id.pokeId = pokemon['id'];
     this.router.navigate(['/', 'pokemon-data'], {
       animated: true,
@@ -98,25 +96,25 @@ export class GenerationDataComponent implements OnInit {
 
   onScroll(event: ScrollEventData) {
 
-    if (this.textFieldActive || this.isLoaded) return;
+    if (this.textFieldActive || this.isLoaded || this.isNavigating) return;
 
     const scroll = <ScrollView>event.object;
     const refY = event.scrollY;
     const maxY = scroll.scrollableHeight;
 
-    this.newIndex = this.oldIndex + 30;
+    this.newIndex = this.oldIndex + this.indexIncrement;
 
     if (maxY === refY) {
       const newEntries = this.all.slice(this.oldIndex, this.newIndex);
       this.generation['pokemon_species'] = this.generation['pokemon_species'].concat(newEntries);
-      this._generation = this.generation['pokemon_species'].concat(newEntries);
+      this._generation = this._generation.concat(newEntries);
       this.oldIndex = this.newIndex;
       this.isLoading = true;
     } else {
       this.isLoading = false;
     }
 
-    if (maxY === refY && this.all.length === this.generation['pokemon_species'].length) {
+    if (maxY === refY && this.all.length === this._generation.length) {
       this.isLoading = false;
     }
   }

@@ -23,9 +23,11 @@ export class TypeDataComponent implements OnInit {
   _types: any[];
   textFieldActive: boolean = false;
   isLoading: boolean;
+  isNavigating: boolean = false;
   isLoaded: boolean = false;
   textField: TextField;
-  oldIndex = 15;
+  indexIncrement= 10;
+  oldIndex = 10;
   newIndex = 0;
 
   constructor(
@@ -39,11 +41,12 @@ export class TypeDataComponent implements OnInit {
     this.types = this.route.snapshot.data['resolve'];
     this.types['name'] = this.object.name(this.types['name']);
     this.all = this.object.pokemon(this.types['pokemon']);
-    this._types = this.object.pokemon(this.types['pokemon']);
-    this.types['pokemon'] = this.all.slice(0, 15);
+    this.types['pokemon'] = this.all.slice(0, this.oldIndex);
+    this._types = this.all.slice(0, this.oldIndex);
   }
 
   onActionBarLoaded(event: EventData) {
+    this.isNavigating = false;
     const object = <ActionBar>event.object;
 
     const overflowIcon = object.nativeView.getOverflowIcon();
@@ -60,10 +63,10 @@ export class TypeDataComponent implements OnInit {
   }
 
   onTextChange(event: EventData) {
-    const object = <TextField>event.object;
-    const text = object.text;
+    this.textField = <TextField>event.object;
+    const text = this.textField.text.toLowerCase();
 
-    this.types['pokemon'] = this._types.filter((e: any) => e['name'].toLowerCase().includes(text));
+    this.types['pokemon'] = this._types.filter((e: any) => e['name'].includes(text));
 
     if (text.length > 0) {
       this.textFieldActive = true;
@@ -74,17 +77,12 @@ export class TypeDataComponent implements OnInit {
   }
 
   onBlur(event: EventData) {
-    this.textField.text = '';
-    if (this.isLoaded) return;
-    this.types['pokemon'] = this._types;
-  }
-
-  onLoaded(event: EventData) {
-    const object = <TextField>event.object;
-    this.textField = object;
+    this.textFieldActive ? this.textField.text = '' : 0;
   }
 
   toPokemon(pokemon: any) {
+    this.isNavigating = true;
+    this.textFieldActive ? this.textField.text = '' : 0;
     this.api.id.pokeId = pokemon['id'];
     this.router.navigate(['/', 'pokemon-data'], {
       animated: true,
@@ -98,25 +96,25 @@ export class TypeDataComponent implements OnInit {
 
   onScroll(event: ScrollEventData) {
 
-    if (this.textFieldActive || this.isLoaded) return;
+    if (this.textFieldActive || this.isLoaded || this.isNavigating) return;
 
     const scroll = <ScrollView>event.object;
     const refY = event.scrollY;
     const maxY = scroll.scrollableHeight;
 
-    this.newIndex = this.oldIndex + 30;
+    this.newIndex = this.oldIndex + this.indexIncrement;
 
     if (maxY === refY) {
       const newEntries = this.all.slice(this.oldIndex, this.newIndex);
       this.types['pokemon'] = this.types['pokemon'].concat(newEntries);
-      this._types = this.types['pokemon'].concat(newEntries);
+      this._types = this._types.concat(newEntries);
       this.oldIndex = this.newIndex;
       this.isLoading = true;
     } else {
       this.isLoading = false;
     }
 
-    if (maxY === refY && this.all.length === this.types['pokemon'].length) {
+    if (maxY === refY && this.all.length === this._types.length) {
       this.isLoading = false;
     }
   }

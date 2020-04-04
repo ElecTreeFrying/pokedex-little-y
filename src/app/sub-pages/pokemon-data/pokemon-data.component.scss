@@ -9,6 +9,11 @@
 
 .fa-long-arrow-alt-right { color: black; }
 
+.fas.fa-angle-down,
+.fas.fa-angle-up {
+  transform: translateY(2);
+}
+
 .scroll-line .hr { margin: 0; }
 
 .key { 
