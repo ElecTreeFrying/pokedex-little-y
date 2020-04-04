@@ -51,12 +51,14 @@
 
 ### TODO
 
-1. Pokémon moves
-2. Pokémon items
-3. Pokémon locations
-3. Pokémon encounters
-3. Pokémon machines
-4. More Pokémon details
+1. App Icon
+2. Loading page
+3. Pokémon moves
+4. Pokémon items
+5. Pokémon locations
+6. Pokémon encounters
+7. Pokémon machines
+8. More Pokémon details
 
 ## Plugins used
 
@@ -121,6 +123,8 @@
 ## License
 
 Apache License Version 2.0
+
+[download apk here.]: https://www.dropbox.com/s/m5v0sxo12e6d666/pokedexlittle.apk?dl=0
 
 [Angular + NativeScript]: https://www.nativescript.org/nativescript-is-how-you-build-native-mobile-apps-with-angular
 [PokéAPI]: https://pokeapi.co/
