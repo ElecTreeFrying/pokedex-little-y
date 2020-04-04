@@ -1,58 +1,62 @@
 
 # Pokédex Little
 
+[download apk here.]
+
 [Angular + NativeScript] demo application featuring [PokéAPI].
 
-[DEMO.gif] **→ TODO**
+![alt-text](src/assets/demo.gif "Hover text")
 
-## What's inside?
+## What's inside
 
 ### Home
 
-1. Lists Kanto Pokédex. [demo][home]
-2. Filter pokemon by name. [demo][home]
-3. Select a pokémon [demo][home]
-   - Display pokémon details. [demo][home]
+1. Lists Kanto Pokédex.
+2. Filter pokemon by name.
+3. Select a pokémon
+   - Display pokémon details.
 
 ### Pokédex
 
-1. Lists all 14 pokédexes. [demo][home]
-2. Select one pokédex. [demo][home]
-   -  Display all pokémon, filtered by selected selected pokédex. [demo][home]
-      -  Filter pokemon by name. [demo][home]
-      -  Select a pokémon. [demo][home]
-         -  Display pokémon details. [demo][home]
+1. Lists all 14 pokédex.
+2. Select one pokédex.
+   - Display all pokémon, filtered by selected selected pokédex.
+      - Filter pokemon by name.
+      - Select a pokémon.
+         - Display pokémon details.
 
 ### Pokémon
 
-1. Lists all 18 pokémon types. [demo][pokemon]
-2. Select one pokémon type. [demo][pokemon]
-   -  Display all pokémon, filtered by selected type. [demo][pokemon]
-      -  Filter pokemon by name.[demo][pokemon]
-      -  Select a pokémon.[demo][pokemon]
-         -  Display pokémon details.[demo][pokemon]
+1. Lists all 18 pokémon types.
+2. Select one pokémon type.
+   - Display all pokémon, filtered by selected type.
+      - Filter pokemon by name.
+      - Select a pokémon.
+         - Display pokémon details.
 
 ### Generation
 
-1. Lists all 7 pokémon generations. [demo][pokemon]
-2. Select one generation. [demo][pokemon]
-   -  Display all pokémon, filtered by generation. [demo][pokemon]
-      -  Filter pokemon by name. [demo][pokemon]
-      -  Select a pokémon. [demo][pokemon]
-         -  Display pokémon details. [demo][pokemon]
+1. Lists all 7 pokémon generations.
+2. Select one generation.
+   - Display all pokémon, filtered by generation.
+      - Filter pokemon by name.
+      - Select a pokémon.
+         - Display pokémon details.
 
 ### Berries
 
-1. Lists 64 kinds of berries [demo][pokemon]
-2. Select a berry. [demo][pokemon]
-    -  Display berry details [demo][pokemon]
+1. Lists 64 kinds of berries
+2. Select a berry.
+   - Display berry details
 
 ### TODO
 
-1. Pokemon moves.
-2. Pokemon items.
-3. Pokemon locations.
-4. Add more details to sidebar.
+1. Pokémon moves
+2. Pokémon items
+3. Pokémon locations
+3. Pokémon encounters
+3. Pokémon machines
+4. More Pokémon details
 
 ## Plugins used
 
@@ -80,10 +84,13 @@
 
 ## Development Specs
 
+**Mobile navigation pattern:** [SideDrawer Navigation]
+
+
 ### App generated using Nativescript CLI version 6.5.0
 
 - **Template:** [tns-template-blank-ng]
-- **Target Platform:** Android only
+- **Target Platform(s):** Android
 - Nativescript v6.5.0
 - Angular v9.0.7
 - Angular CLI v8.2.0
@@ -106,12 +113,6 @@
 > tns run android --env.uglify --env.aot
 ```
 
-## Issues
-
-TextField event, (textChange). Not working on device keyboard. #8494
-
-Unable to change background color of ActionBar installed on a device. #8469
-
 ## Contributing
 
 - Feel free to submit any pull requests. ✨✨✨
@@ -121,16 +122,10 @@ Unable to change background color of ActionBar installed on a device. #8469
 
 Apache License Version 2.0
 
-[home]: https://
-[pokedex]: https://
-[pokemon]: https://
-[generation]: https://
-[berries]: https://
-
 [Angular + NativeScript]: https://www.nativescript.org/nativescript-is-how-you-build-native-mobile-apps-with-angular
 [PokéAPI]: https://pokeapi.co/
 
-[IntelliSense and Access to the Native APIs via TypeScript]: https://docs.nativescript.org/core-concepts/accessing-native-apis-with-javascript#intellisense-and-access-to-the-native-apis-via-typescript
+[SideDrawer Navigation]: https://docs.nativescript.org/angular/core-concepts/angular-navigation#sidedrawer-navigation
 
 [UI Sidedrawer]: https://market.nativescript.org/plugins/nativescript-ui-sidedrawer
 [Material Ripple]: https://market.nativescript.org/plugins/nativescript-material-ripple

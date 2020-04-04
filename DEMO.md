@@ -1,4 +1,0 @@
-
-# Pokedex Little
-
-## TODO
