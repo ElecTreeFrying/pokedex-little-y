@@ -46,7 +46,7 @@
     "@types/chance": "^1.0.9",
     "@types/lodash": "^4.14.149",
     "nativescript-dev-webpack": "~1.5.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "tns-platform-declarations": "^6.5.0",
     "typescript": "~3.5.3"
   },
